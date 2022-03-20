@@ -1,6 +1,35 @@
 <?php
-//https://accounts.google.com/o/oauth2/v2/auth
+include_once('lib/session.php');
+include_once('lib/dbcon_MZ_DSG_PLANNER.php');
+include_once('contents_header.php');
+include_once('contents_profile.php');
+include_once('contents_sidebar.php');
 
+?>
+
+
+	
+	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">	
+	
+		<div class="row">
+			<ol class="breadcrumb">
+				<li><a href="/MZ_DSG_PLANNER/home.php"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a> home				
+				</li>
+
+			</ol>
+		</div>
+
+	<div class="row">
+			<div class="col-md-6">
+				<div class="panel panel-primary">
+					<div class="panel-heading">권한 얻기(공사중)</div>
+					<div class="panel-body">
+					<div class="form-group">
+
+
+
+
+<?php
 
 function hd_temp_echo($name,$value) {
     echo $name." : <input type = 'text' name = '".$name."' value='".$value."'><br>";
@@ -22,10 +51,10 @@ $state = isset($_GET['state']) ? $_GET['state'] : 3;
 
 
 
-<html> <body> <style> input{ width:300px; } </style> <form action="https://www.googleapis.com/oauth2/v4/token" method="post" enctype="application/x-www-form-urlencoded"> 
+<form action="https://www.googleapis.com/oauth2/v4/token" method="post" enctype="application/x-www-form-urlencoded"> 
     code : <input type="text" id="codebox" name="code"><br> 
-    client_id : <input type="text" name="client_id" value=63637537412-hu0d2aabtsf58r3skjoh9j125ib9j5k3.apps.googleusercontent.com"><br>
-     client_secret : <input type="text" name="client_secret" value="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"><br>
+    client_id : <input type="text" name="client_id" value="63637537412-bufv2jfof7i498d64kvqdf69ms44mdr7.apps.googleusercontent.com"><br>
+     client_secret : <input type="text" name="client_secret" value="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"><br>
       redirect_uri : <input type="text" name="redirect_uri" value="http://localhost/MZ_DSG_PLANNER/test.php"><br>
       grant_type : <input type="text" name="grant_type" value="authorization_code"><br>      <input type="submit">
      </form>
@@ -44,67 +73,17 @@ $state = isset($_GET['state']) ? $_GET['state'] : 3;
  
 
 
+     </div>
+				</div>
+			</div>
+			
+		</div><!--/.row-->
+		
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-<?php
-
-
-/*
-https://accounts.google.com/o/oauth2/v2/auth
-
-
-<p>~~~~~~~~~~~~~~~~~~~~~<p>
-<form name="frm" role="form" method="get" action="https://accounts.google.com/o/oauth2/v2/auth">
-        <?php
-           // hd_urlencode_echo('code',$code);
-            hd_temp_echo('client_id','63637537412-2m50g234bj15beqah1fmgmni3ae8o3q1.apps.googleusercontent.com');
-           // hd_temp_echo('client_secret','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');
-            echo "redirect_uri : <input type = 'text' name = 'redirect_uri' value='http://localhost/MZ_DSG_PLANNER/test.php'><br>";
-           // hd_temp_echo('grant_type','authorization_code');
-            hd_temp_echo('response_type','code');
-            hd_temp_echo('scope','https://mail.google.com');
-
-        
-        ?>
-        
-        
-<input  type='submit' value = '2차'>
-</form>
-
-<form name="frm" role="form" method="get" action="https://accounts.google.com/o/oauth2/v2/auth">
-    <?php
-            hd_temp_echo('scope','https%3A//www.googleapis.com/auth/drive.metadata.readonly');
-            hd_temp_echo('access_type','offline');
-            hd_temp_echo('include_granted_scopes','true');
-            hd_temp_echo('response_type','code');
-            hd_temp_echo('state',$state);
-
-            
-            echo "redirect_uri : <input type = 'text' name = 'redirect_uri' value='http://localhost/MZ_DSG_PLANNER/test.php'><br>";
-    
-            
-            hd_temp_echo('client_id','63637537412-2m50g234bj15beqah1fmgmni3ae8o3q1.apps.googleusercontent.com');
-            
-            
-        
-        ?>
-        
-        
-<input  type='submit' >
-</form>
-*/
-?>
+								
+	</div>	<!--/.main-->
+<?php include_once('contents_footer.php');?>
