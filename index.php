@@ -104,12 +104,13 @@
 				$sql	 = "select a.admin_id,a.admin_name,a.lasted_login,b.company_name,c.division_name
 				
 								from admin_member as a 
-									join company_info as b
+									join admin_company_info as b
 								on a.company_idx = b.company_idx
-									join division_info as c
+									join admin_division_info as c
 								on a.division_idx = c.division_idx		
 								
 								where a.admin_state = 0;";
+				echo $sql; 								
 				$res	=  mysqli_query($real_sock,$sql) or die(mysqli_error($real_sock));
 				while($info	 = mysqli_fetch_array($res)){
 					$no +=1;
@@ -192,10 +193,10 @@ include_once('g_footer.php');
 						<label>회사 선택</label>
 							<select class="form-control" name = 'company_idx'>
 							<?php
-								$company_info_sql	 = "select * from company_info;";
-								$company_info_res	=  mysqli_query($real_sock,$company_info_sql) or die(mysqli_error($real_sock));
-								while($company_info_info	 = mysqli_fetch_array($company_info_res)){
-										echo "<option value = '".$company_info_info['company_idx']."'>".$company_info_info['company_name']."</option>";
+								$admin_company_info_sql	 = "select * from admin_company_info;";
+								$admin_company_info_res	=  mysqli_query($real_sock,$admin_company_info_sql) or die(mysqli_error($real_sock));
+								while($admin_company_info_info	 = mysqli_fetch_array($admin_company_info_res)){
+										echo "<option value = '".$admin_company_info_info['company_idx']."'>".$admin_company_info_info['company_name']."</option>";
 								};
 							?>
 							</select>
@@ -205,10 +206,10 @@ include_once('g_footer.php');
 							<label>회사 선택</label>
 							<select class="form-control" name = 'division_idx'>
 							<?php								
-								$company_info_sql	 = "select * from division_info;";
-								$company_info_res	=  mysqli_query($real_sock,$company_info_sql) or die(mysqli_error($real_sock));
-								while($company_info_info	 = mysqli_fetch_array($company_info_res)){
-										echo "<option value = '".$company_info_info['division_idx']."'>".$company_info_info['division_name']."</option>";									
+								$admin_company_info_sql	 = "select * from admin_division_info;";
+								$admin_company_info_res	=  mysqli_query($real_sock,$admin_company_info_sql) or die(mysqli_error($real_sock));
+								while($admin_company_info_info	 = mysqli_fetch_array($admin_company_info_res)){
+										echo "<option value = '".$admin_company_info_info['division_idx']."'>".$admin_company_info_info['division_name']."</option>";									
 								};
 							?>
 							</select>
