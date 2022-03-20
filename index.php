@@ -110,7 +110,7 @@
 								on a.division_idx = c.division_idx		
 								
 								where a.admin_state = 0;";
-				echo $sql; 								
+										
 				$res	=  mysqli_query($real_sock,$sql) or die(mysqli_error($real_sock));
 				while($info	 = mysqli_fetch_array($res)){
 					$no +=1;

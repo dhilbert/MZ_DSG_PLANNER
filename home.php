@@ -40,7 +40,8 @@ include_once('contents_sidebar.php');
 
 
 ?>
-
+								<button type="submit" class="btn btn-primary">google Drive api test(공사중)</button>
+<p>
 											  
 <table  border = 1 width='100%'>
 	<thead>
@@ -65,9 +66,9 @@ include_once('contents_sidebar.php');
 	$sql = "select a.admin_id,a.admin_name,a.lasted_login,b.company_name,c.division_name,a.admin_idx
 				
 	from admin_member as a 
-		join company_info as b
+		join admin_company_info as b
 	on a.company_idx = b.company_idx
-		join division_info as c
+		join admin_division_info as c
 	on a.division_idx = c.division_idx		
 	
 	where a.admin_state = 0

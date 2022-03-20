@@ -24,10 +24,10 @@ $state = isset($_GET['state']) ? $_GET['state'] : 3;
 
 <html> <body> <style> input{ width:300px; } </style> <form action="https://www.googleapis.com/oauth2/v4/token" method="post" enctype="application/x-www-form-urlencoded"> 
     code : <input type="text" id="codebox" name="code"><br> 
-    client_id : <input type="text" name="client_id" value=63637537412-hu0d2aabtsf58r3skjoh9j125ib9j5k3.apps.googleusercontent.com"><br>
-     client_secret : <input type="text" name="client_secret" value="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"><br>
+    client_id : <input type="text" name="client_id" value=126535204254-l050qbdjopjg49j90bucm88uptnrmari.apps.googleusercontent.com"><br>
+     client_secret : <input type="text" name="client_secret" value="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"><br>
       redirect_uri : <input type="text" name="redirect_uri" value="http://localhost/MZ_DSG_PLANNER/test.php"><br>
-      grant_type : <input type="text" name="grant_type" value="authorization_code"><br>      <input type="submit">
+       grant_type : <input type="text" name="grant_type" value="authorization_code"><br> <input type="submit">
      </form>
      
      
@@ -41,7 +41,7 @@ $state = isset($_GET['state']) ? $_GET['state'] : 3;
 
 
 
- 
+
 
 
 
