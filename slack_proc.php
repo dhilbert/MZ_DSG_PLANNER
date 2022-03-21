@@ -43,7 +43,10 @@ class Slack {
         
         try {
                             
-            $ch = curl_init('https://hooks.slack.com/services/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');
+            //$ch = curl_init('https://hooks.slack.com/services/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');
+            //$ch = curl_init('https://hooks.slack.com/services/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');    // 슬랙 테스트방
+            $ch = curl_init('https://hooks.slack.com/services/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');    //정휘영
+            
             
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST,  'POST');
             curl_setopt($ch, CURLOPT_POSTFIELDS,     'payload='.json_encode($this->postData));
@@ -69,10 +72,12 @@ $postData = array( 'channel' => '#jira_site_slackapitest', 'username' => $userna
 ". date("Y-m-d H:i:s") ); 
 
 $slack->sendSlack($postData);
+
+/*
 echo "<script>
 alert('슬랙 채널 #jira_site_slackapitest 를 확인 하십시오');
 history.back();
 </script> ";
-
+*/
 
 ?>

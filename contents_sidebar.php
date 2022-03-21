@@ -42,6 +42,18 @@ function hd_drop($num,$grobal,$sub_name,$sub_url){
 		<li <?php hd_active("home.php");?>><a href="/MZ_DSG_PLANNER/home.php"><svg class="glyph stroked home"><use xlink:href="#stroked-home"/></svg>Home</a></li>
 		<li <?php hd_active("slacks.php");?>><a href="/MZ_DSG_PLANNER/slacks.php"><svg class="glyph stroked home"><use xlink:href="#stroked-home"/></svg>webhook테스트</a></li>
 		<li <?php hd_active("test_pre.php");?>><a href="/MZ_DSG_PLANNER/test_pre.php"><svg class="glyph stroked home"><use xlink:href="#stroked-home"/></svg>oauth2 승인</a></li>
+
+		<?php
+			$num		='hq-99';
+			$grobal		= '설정';
+			$sub_name	= array('템플릿관리');
+			$sub_url	= array("/MZ_DSG_PLANNER/99_mysettiong/99_0_mysettiong_main.php");
+			hd_drop($num,$grobal,$sub_name,$sub_url);
+
+
+		?>
+
+
 		<!--
 		
 					<li <?php hd_active("jira_updat.php");?>><a href="/MZ_DSG_PLANNER/jira_update/jira_update_main.php"><svg class="glyph stroked home"><use xlink:href="#stroked-home"/></svg>지라 동기화</a></li>
@@ -67,12 +79,7 @@ function hd_drop($num,$grobal,$sub_name,$sub_url){
 					
 			
 /*
-			$num		='hq-2';
-			$grobal		= '주간공수';
-			$sub_name	= array('주간 공수');
-			$sub_url	= array("/MZ_DSG_PLANNER/jira_week/jira_week_main.php");
-			hd_drop($num,$grobal,$sub_name,$sub_url);
-
+			
 
 
 

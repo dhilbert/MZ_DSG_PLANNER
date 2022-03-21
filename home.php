@@ -38,11 +38,10 @@ include_once('contents_sidebar.php');
 
 	
 
-
 ?>
 								<button type="submit" class="btn btn-primary">google Drive api test(공사중)</button>
 <p>
-											  
+										  
 <table  border = 1 width='100%'>
 	<thead>
 		<tr>
