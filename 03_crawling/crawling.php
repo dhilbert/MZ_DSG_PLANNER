@@ -1,103 +1,225 @@
 <?php
-$url = 'https://www.akmall.com/goods/GoodsDetail.do?goods_id=100026863';//AK
-$url = 'https://www.galleria.co.kr/goods/initDetailGoods.action?goods_no=2101742518';//Galleria 
-$url = 'https://www.hmall.com/p/pda/itemPtc.do?slitmCd=2135096658';//Hmall  
+function ak_crawling($url){
+    $snoopy = new Snoopy;
+    $snoopy->fetch($url);
+    $origin_html = $snoopy->results;    
 
-$url = 'http://www.ssg.com/item/itemView.ssg?itemId=1000039917198';//ssg 크롤링 불가
-$url = 'http://www.lotteimall.com/goods/viewGoodsDetail.lotte?goods_no=1913552635';//Imall 
-$url = 'https://www.discoverglo.co.kr/cpanel';//
+    $want_text = explode('<img id="mainGoodsImage" src="',$origin_html);
+    $want_text = explode('" alt="',$want_text[1]);
+    $img =  "<img src='".$want_text[0]."'>";
+    
+    $want_text = explode('<strong class="c_pink"></strong>',$origin_html);
+    $want_text = explode('<em class="sub">',$want_text[1]);
+    $title =  $want_text[0];
+    
+    $want_text = explode('<dd class="ss"><i>',$origin_html);
+    $want_text = explode('</i>원</dd>',$want_text[1]);
+    $real_price = $want_text[0];
 
-$url = 'https://www.lotteon.com/p/product/LE1208998277';//LOTTE   됨
-$url = 'https://www.akmall.com/goods/GoodsDetail.do?goods_id=100026863';//AK
-$url = 'https://www.lotteon.com/p/product/LE1208998277';//LOTTE   됨
+    $want_text = explode('<dd class="tt"><i>',$origin_html);
+    $want_text = explode('</i>원</dd>',$want_text[1]);
+    $dis_price = $want_text[0];
 
-
-
-
-
-$url = 'https://www.lotteon.com/p/product/LE1208998277';//LOTTE   됨
-
-
-
-
-    $url = 'https://www.lotteon.com/p/product/LE1208998277';//LOTTE   됨
-    $url = 'http://www.ssg.com/item/itemView.ssg?itemId=1000039917198';//ssg 크롤링 불가
-
-    $url = 'https://www.hmall.com/p/pda/itemPtc.do?slitmCd=2137499009';//AK
-
-
-    $url = 'https://www.akmall.com/goods/GoodsDetail.do?goods_id=100026863';//AK
-    $url = 'https://www.akmall.com/goods/GoodsDetail.do?goods_id=100026855';//AK
-
-//Snoopy.class.php를 불러옵니다
-require('Snoopy.class.php');
- 
- 
-//스누피를 생성해줍시다
-$snoopy = new Snoopy;
- 
-//스누피의 fetch함수로 제 웹페이지를 긁어볼까요? :)
-$snoopy->fetch($url);
-$temp = $snoopy->results;
-
-
-$want_text = explode('<img id="mainGoodsImage" src="',$temp);
-$want_text = explode('" alt="',$want_text[1]);
-echo "<img src='".$want_text[0]."'>";
-
-/*
-
-$want_text = explode('" alt="',$want_text[0]);
-$want_text = explode('<img src="',$want_text[0]);
-echo "<img src='".$want_text[1]."'>";
-
-/*
-<img id="mainGoodsImage" src="
-//photo.akmall.com/image3/goods/00/02/68/63/100026863_M_350.jpg" alt="[조르지오 아르마니]디자이너 리프트 블루파운데이션" width="348" height="348" onerror="noImage(this, 350)">
+    $want_text = explode('class="sp direct" value="',$origin_html);
+    $want_text = explode('"',$want_text[1]);
+    $button_t  = $want_text[0];
+    $want_array = array($title,$img , $real_price , $dis_price    ,$button_t         );
+    return $want_array;
+}    
 
 
 
-//결과는 $snoopy->results에 저장되어 있습니다
-//preg_match 정규식을 사용해서 이제 본문인 article 요소만을 추출해보도록 하죠
-preg_match('/<div class="goods_info">(.*?)<\/div>/is', $snoopy->results, $text);
- 
-//이제 결과를 보면...?
-echo $text[1];
+function hmall_crawling($url){
+    $snoopy = new Snoopy;
+    $snoopy->fetch($url);
+    $origin_html = $snoopy->results;    
+
+    $want_text = explode('<div class="item"  data-item data-outputsrc="',$origin_html);
+    $want_text = explode('?RS=1400x1400&AR=0"',$want_text[1]);
+    $img =  "<img src='".$want_text[0]."'>";
+    
+    $want_text = explode('<strong class="prduct-name">',$origin_html);
+    $want_text = explode('</strong>',$want_text[1]);
+    $title =  $want_text[0];
+   
+    $want_text = explode('<p class="discount" aria-label="할인가">',$origin_html);
+    $want_text = explode('<em>',$want_text[1]);
+    $want_text = explode('</em><b>원</b>',$want_text[1]);
+    $real_price = $want_text[0];
+
+
+    $want_text = explode('<dl class="baroOnOff" id="crdImdDlTagTmp">',$origin_html);
+    $want_text = explode('<em>',$want_text[1]);    
+    $want_text = explode('</em>',$want_text[1]);
+    $dis_price = $want_text[0];
+
+
+    $want_text = explode('<button class="btn btn-default large btn-buy" onclick="buyDirect();"><span>',$origin_html);
+    $want_text = explode('</span>',$want_text[1]);
+    $button_t  = $want_text[0];
+    $want_array = array($title,$img , $real_price , $dis_price    ,$button_t         );
+    
+    
+
+    return $want_array;
+}    
+
+
+function galleria_crawling($url){
+    $snoopy = new Snoopy;
+    $snoopy->fetch($url);
+    $origin_html = $snoopy->results;    
+
+    
+    $want_text = explode('<div class="gd_img" id="gd_img">',$origin_html);
+    $want_text = explode('<img src="',$want_text[1]);
+    $want_text = explode('" alt="',$want_text[1]);
+    $img =  "<img src='".$want_text[0]."'>";
+    
+    
+    $want_text = explode('<div class="gd_name">',$origin_html);
+    $want_text = explode('</div>',$want_text[1]);
+    $title =  $want_text[0];
+   
+    $want_text = explode('<div class="g_org"><em class="ir">판매가</em>',$origin_html);
+    $want_text = explode('<em class="unit">원</em></div>',$want_text[1]);
+    ;
+    $real_price = $want_text[0];
+        
+    $want_text = explode('<span class="rate"><em class="ir">할인율</em><b>',$origin_html);
+    $want_text = explode('</span>',$want_text[1]);
+    $want_text = explode('<em class="unit">원</em>',$want_text[1]);
+    $dis_price = trim($want_text[0]);
+
+
+    $want_text = explode('button type="button" onclick="GOODS.fn.fnAddCart(this);" data-cart_divi_cd="20"><em>',$origin_html);
+    $want_text = explode('</em>',$want_text[1]);
+    $button_t  = $want_text[0];
+
+    $want_array = array($title,$img , $real_price , $dis_price    ,$button_t         );
+
+    
+
+    return  $want_array;
+}    
 
 
 
+function kakao_crawling($url){
+        
+    $snoopy = new Snoopy;
+    $snoopy->fetch($url);
+    $origin_html = $snoopy->results;    
+
+    $want_text = explode('<meta property="og:image" content="',$origin_html);
+    $want_text = explode('">',$want_text[1]);
+    $img =  "<img src='".$want_text[0]."'>";
+    
+    
+    
+    $want_text = explode('<meta property="og:title" content="',$origin_html);
+    $want_text = explode('">',$want_text[1]);
+    $title =  $want_text[0];
+   
+    $want_text = explode('<meta property="og:description" content="지금 카카오톡 선물하기에서 ',$origin_html);
+    $want_text = explode('원">',$want_text[1]);
+    $real_price = $want_text[0];
+        
+    $dis_price = "추적 불가능";
 
 
-//preg_match('/<div class="goods_info">(.*?)<\/div>/is', $snoopy->results, $text);
-preg_match('/<div class="info_top">(.*?)<\/div>/is', $snoopy->results, $text);
+    
+    $button_t  = "추적 불가능";
+
+    $want_array = array($title,$img , $real_price , $dis_price    ,$button_t         );
+
+    
+
+    return  $want_array;
+    
+}    
 
 
 
-//이제 결과를 보면...?
-print_r($text);
-//preg_match('/<div class="goods_info">(.*?)<\/div>/is', $snoopy->results, $text);
-preg_match('/<li class="c_price">(.*?)<\/li>/is', $snoopy->results, $text);
+function lotte_crawling($url){
+        
+    $snoopy = new Snoopy;
+    $snoopy->fetch($url);
+    $origin_html = $snoopy->results;    
+
+    
+$want_text = explode('meta property="og:image" content="',$origin_html);
+$want_text = explode('">',$want_text[1]);
+$img =  "<img src='".$want_text[0]."'>";
+    
+    
+    
+$want_text = explode('&quot;pdNm&quot;:&quot;',$origin_html);
+$want_text = explode('&quot;,&quot;ageLmtCd&quot;:&quot;0&quot;,&quot;brdNo&quot;:&quot;P3686&quot;,&quot;brdNm&quot;:&quot;조르지오 아르',$want_text[1]);
+    $title =  $want_text[0];
+   
+    
+$want_text = explode(',&quot;priceInfo&quot;:{&quot;slPrc&quot;:',$origin_html);
+$want_text = explode('},&quot;dlvInfo&quot;:{&quot;dvRsvDvsCd&quot;:&quot;GNRL_',$want_text[1]);
+    $real_price = $want_text[0];
+        
+    $dis_price = "추적 불가능";
 
 
+    
+    $button_t  = "추적 불가능";
 
-//이제 결과를 보면...?
-print_r($text);
+    $want_array = array($title,$img , $real_price , $dis_price    ,$button_t         );
+
+    
+
+    return  $want_array;
+    
+}    
+    
+function imall_crawling($url){
+        
+    $snoopy = new Snoopy;
+    $snoopy->fetch($url);
+    $origin_html = $snoopy->results;    
 
 
-//결과는 $snoopy->results에 저장되어 있습니다
-//preg_match 정규식을 사용해서 이제 본문인 article 요소만을 추출해보도록 하죠
-preg_match('/<div class="contentArea el">(.*?)<\/div>/is', $snoopy->results, $text);
- 
-echo $snoopy->results;
+            
+    $want_text = explode('<div class="thumb_product">',$origin_html);
+    $want_text = explode('<img  src="',$want_text[1]);
+    $want_text = explode('" onError="',$want_text[1]);
+    $img =  "<img src='".$want_text[0]."'>";
+    
+    $want_text = explode('<span class="tit">',$origin_html);
+    $want_text = explode('</span>',$want_text[1]);
+    $title =  trim($want_text[0]);
 
-$dom = new DOMDocument;
-$dom->loadHTML($snoopy->results);
 
+    $want_text = explode('<span class="line">',$origin_html);
+    $want_text = explode('</span> 원</span>',$want_text[1]);
+    $real_price = $want_text[0];
 
+    
+    $want_text = explode('<span class="num">',$want_text[1]);
+    $want_text = explode('</span>',$want_text[1]);
+    $dis_price = $want_text[0];
 
-//이제 결과를 보면...?
-print_r($text);
-*/
+    $want_text = explode('id="immOrder-btn">',$origin_html);
+    $want_text = explode('</a></li>',$want_text[1]);   
+   
+    $button_t  = $want_text[0];
+
+    $want_array = array($title,$img , $real_price , $dis_price    ,$button_t         );
+
+    
+
+    return  $want_array;
+    
+}    
+
+        
+    require('Snoopy.class.php');
+    
 ?>
 
 

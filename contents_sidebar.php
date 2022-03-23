@@ -59,6 +59,12 @@ function hd_drop($num,$grobal,$sub_name,$sub_url){
 			$sub_url	= array("/MZ_DSG_PLANNER/02_weekreport/01_KBO.php");
 			hd_drop($num,$grobal,$sub_name,$sub_url);
 
+			$num		='hq-03';
+			$grobal		= '로레알 크롤링';
+			$sub_name	= array('설정','크롤링');
+			$sub_url	= array("/MZ_DSG_PLANNER/03_crawling/01_crawling_settiong.php");
+			hd_drop($num,$grobal,$sub_name,$sub_url);
+
 
 			$num		='hq-99';
 			$grobal		= '설정';
