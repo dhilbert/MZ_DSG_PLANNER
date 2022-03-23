@@ -1,32 +1,3 @@
-<?php
-include_once('lib/session.php');
-include_once('lib/dbcon_MZ_DSG_PLANNER.php');
-include_once('contents_header.php');
-include_once('contents_profile.php');
-include_once('contents_sidebar.php');
-
-?>
-
-
-	
-	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">	
-	
-		<div class="row">
-			<ol class="breadcrumb">
-				<li><a href="/MZ_DSG_PLANNER/home.php"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a> home				
-				</li>
-
-			</ol>
-		</div>
-
-	<div class="row">
-			<div class="col-md-6">
-				<div class="panel panel-primary">
-					<div class="panel-heading">권한 얻기(공사중)</div>
-					<div class="panel-body">
-					<div class="form-group">
-
-
 
 
 <?php
@@ -53,8 +24,8 @@ $state = isset($_GET['state']) ? $_GET['state'] : 3;
 
 <form action="https://www.googleapis.com/oauth2/v4/token" method="post" enctype="application/x-www-form-urlencoded"> 
     code : <input type="text" id="codebox" name="code"><br> 
-    client_id : <input type="text" name="client_id" value="63637537412-bufv2jfof7i498d64kvqdf69ms44mdr7.apps.googleusercontent.com"><br>
-     client_secret : <input type="text" name="client_secret" value="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"><br>
+    client_id : <input type="text" name="client_id" value="63637537412-oilcc6h898e4v4ac97m2ppusk0vuif0d.apps.googleusercontent.com"><br>
+     client_secret : <input type="text" name="client_secret" value="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"><br>
       redirect_uri : <input type="text" name="redirect_uri" value="http://localhost/MZ_DSG_PLANNER/test.php"><br>
       grant_type : <input type="text" name="grant_type" value="authorization_code"><br>      <input type="submit">
      </form>
@@ -73,17 +44,3 @@ $state = isset($_GET['state']) ? $_GET['state'] : 3;
  
 
 
-     </div>
-				</div>
-			</div>
-			
-		</div><!--/.row-->
-		
-
-
-
-
-
-								
-	</div>	<!--/.main-->
-<?php include_once('contents_footer.php');?>

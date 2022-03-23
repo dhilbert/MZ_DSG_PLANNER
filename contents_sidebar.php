@@ -44,6 +44,22 @@ function hd_drop($num,$grobal,$sub_name,$sub_url){
 		<li <?php hd_active("test_pre.php");?>><a href="/MZ_DSG_PLANNER/test_pre.php"><svg class="glyph stroked home"><use xlink:href="#stroked-home"/></svg>oauth2 승인</a></li>
 
 		<?php
+
+			$num		='hq-01';
+			$grobal		= '지라 관리';
+			$sub_name	= array('지라 생성');
+			$sub_url	= array("/MZ_DSG_PLANNER/01_workflow/01_workflow.php");
+			hd_drop($num,$grobal,$sub_name,$sub_url);
+
+
+
+			$num		='hq-02';
+			$grobal		= '업체별 주간 보고';
+			$sub_name	= array('KBO(1식)','로레얄(2식)');
+			$sub_url	= array("/MZ_DSG_PLANNER/02_weekreport/01_KBO.php");
+			hd_drop($num,$grobal,$sub_name,$sub_url);
+
+
 			$num		='hq-99';
 			$grobal		= '설정';
 			$sub_name	= array('템플릿관리');

@@ -43,7 +43,7 @@ include_once('contents_sidebar.php');
 	response_type=code&
 	state=state_parameter_passthrough_value&
 	redirect_uri=http://localhost/MZ_DSG_PLANNER/test.php&
-	client_id=63637537412-bufv2jfof7i498d64kvqdf69ms44mdr7.apps.googleusercontent.com">oauth2 권한 얻기</a>
+	client_id=63637537412-nso7d7k6594bn8c2is3ktirev2ep7je7.apps.googleusercontent.com">oauth2 권한 얻기</a>
 
 
 	<html>
