@@ -105,8 +105,8 @@ include_once('../contents_sidebar.php');
 				select b.crawling_company_name,a.crawling_sku,a.crawling_price,a.crawling_name,a.crawling_status,a.crawling_reg_date,a.crawling_idx
 					
 					from crawling as a 
-						JOIN 	crawling_company as b 
-					on a.crawling_company_inx	= b.crawling_company_idx
+						JOIN 	crawling_idx as b 
+					on a.crawling_idx	= b.crawling_idx
 				order by 	crawling_idx DESC
 		";
 		$res	=  mysqli_query($real_sock,$sql) or die(mysqli_error($real_sock));
@@ -119,20 +119,13 @@ include_once('../contents_sidebar.php');
 				<td data-field='s_1' data-sortable='true' >".$info['crawling_name']."</td>
 				<td data-field='s_2' data-sortable='true' >".$info['crawling_sku']."</td>
 				<td data-field='s_3' data-sortable='true' >".$info['crawling_price']."</td>
-				<td data-field='s_4' data-sortable='true' >".$info['crawling_reg_date']."</td>";
+				<td data-field='s_4' data-sortable='true' >".$info['crawling_reg_date']."</td>
 
-				if($info['crawling_status']==1){
-					echo "<td data-field='s_5' data-sortable='true' ><a href='del_crawling_proc.php?crawling_idx=".$info['crawling_idx']."'>제거</a></td>";
-	
-				}
-				if($info['crawling_status']==0){
-					echo "<td data-field='s_5' data-sortable='true' ><a href='del_crawling_add.php?crawling_idx=".$info['crawling_idx']."'>추가</a></td>";
-	
-				}
-
+				
 	
 	
-			echo "</tr>	";
+	
+			</tr>	";
 
 
 

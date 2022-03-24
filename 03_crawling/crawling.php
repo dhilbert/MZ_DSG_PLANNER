@@ -1,4 +1,11 @@
 <?php
+
+
+include_once('../lib/session.php');
+include_once('../lib/dbcon_MZ_DSG_PLANNER.php');
+
+
+
 function ak_crawling($url){
     $snoopy = new Snoopy;
     $snoopy->fetch($url);
@@ -26,7 +33,6 @@ function ak_crawling($url){
     $want_array = array($title,$img , $real_price , $dis_price    ,$button_t         );
     return $want_array;
 }    
-
 
 
 function hmall_crawling($url){
@@ -219,6 +225,40 @@ function imall_crawling($url){
 
         
     require('Snoopy.class.php');
+
+
+    
+
+    
+    
+
+
+    
+    
+    ak_crawling($url) ;  //3
+    galleria_crawling($url); //4
+    hmall_crawling($url); //1
+    imall_crawling($url);  //7
+    lotte_crawling($url);  //6
+    kakao_crawling($url);  //5
+
+    $sql	 = "select *
+    from crawling 
+    
+    where crawling_status = 1;";
+            
+    $res	=  mysqli_query($real_sock,$sql) or die(mysqli_error($real_sock));
+    while($info	 = mysqli_fetch_array($res)){
+        echo $info['crawling_company_inx'],$info['crawling_sku'];
+
+
+    }
+
+
+
+
+
+
     
 ?>
 

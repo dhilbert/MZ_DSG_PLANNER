@@ -2,29 +2,48 @@
 
 include_once('../lib/session.php');
 include_once('../lib/dbcon_MZ_DSG_PLANNER.php');
-include "../PHPExcel/Classes/PHPExcel.php";
-$now_time =  date("Y-m-d H:i:s");
-$jem_idx = isset($_GET['jem_idx']) ? $_GET['jem_idx'] : 3;
+include "PHPExcel/Classes/PHPExcel.php";
 
-$sql	 = "select * from jira_excel_maintain where jem_idx ='".$jem_idx."';";
+
+
+$company_list = array(array(0,"메가존"));
+$sql	 = "select * from crawling_company;";
+$res	=  mysqli_query($real_sock,$sql) or die(mysqli_error($real_sock));
+while($info	 = mysqli_fetch_array($res)){
+  $temp_list = array($info['crawling_company_idx'],$info['crawling_company_name']	);
+  array_push($company_list,$temp_list);
+};
+
+function hd_checking_company($company_list,$name){
+  $want_num = 99;
+  for($i=0 ; $i <count($company_list);$i++){
+    if($company_list[$i][1]==$name){
+      $want_num = $company_list[$i][0];
+      break ;
+    }
+  }
+
+  return $want_num;
+}
+
+
+
+
+
+$now_time =  date("Y-m-d H:i:s");
+$crawling_flie_idx = isset($_GET['crawling_flie_idx']) ? $_GET['crawling_flie_idx'] : 3;
+
+$sql	 = "select crawling_flie_name from crawling_file where crawling_flie_idx ='".$crawling_flie_idx."';";
 $res	=  mysqli_query($real_sock,$sql) or die(mysqli_error($real_sock));
 $info	 = mysqli_fetch_array($res);
-
+//echo $info['crawling_flie_name'];
 
 $objPHPExcel = new PHPExcel();
-
-
 // 엑셀 데이터를 담을 배열을 선언한다.
-
 $allData = array();
-
-
-
 // 파일의 저장형식이 utf-8일 경우 한글파일 이름은 깨지므로 euc-kr로 변환해준다.
 
-
-
-$file_name = "xlsx/".$info['file_name'];
+$file_name = "xlsx/".$info['crawling_flie_name'];
 $filename = iconv("UTF-8", "EUC-KR",$file_name );
 
 
@@ -94,55 +113,56 @@ echo "<pre>";
 
 echo "<br>";
 
-print_r($allData[2]);
+
 
 //
 
-$start_sql="INSERT INTO jira_excel_sub(jem_idx, Issue_Type, jiraKey, Summary, Assignee, Priority, Updated, Time_Spent, Due_Datetime, Start_Datess, Resolution, Start_dates, Components, Descriptions)  VALUES";
+$start_sql="INSERT INTO crawling(crawling_company_inx, crawling_sku,
+crawling_price,
+crawling_name,
+crawling_status,
+crawling_reg_date)  VALUES";
 $rrsql = $start_sql;
+
+
+
 for($i=2 ; $i <count($allData)+2;$i++){
   $temp_list = $allData[$i];
         
   
-      $rrsql = $rrsql." ('".$jem_idx."',
-        '".$temp_list[0]."',
-        '".$temp_list[1]."',
-        '".preg_replace("/[ #\/\\\:;,'\"`<>()]/i","", $temp_list[2])."',
-        '".$temp_list[3]."',
+      $rrsql = $rrsql." (
+        '".hd_checking_company($company_list,trim($temp_list[0]))."',
         '".$temp_list[4]."',
-        '".PHPExcel_Style_NumberFormat::toFormattedString($temp_list[5], PHPExcel_Style_NumberFormat::FORMAT_DATE_YYYYMMDDSLASH)."',
-        '".$temp_list[6]."',                        
-        '".PHPExcel_Style_NumberFormat::toFormattedString($temp_list[7], PHPExcel_Style_NumberFormat::FORMAT_DATE_YYYYMMDDSLASH)."',
-        '".PHPExcel_Style_NumberFormat::toFormattedString($temp_list[8], PHPExcel_Style_NumberFormat::FORMAT_DATE_YYYYMMDDSLASH)."',
-        '".$temp_list[9]."',
-        '".$temp_list[10]."',
-        '".$temp_list[11]."',
-        '".preg_replace("/[ #\/\\\:;,'\"`<>()]/i","", $temp_list[12])."'),";
-      if($i%100==0){
-
-        $rrsql = substr($rrsql, 0, -1);
-        $res	=  mysqli_query($real_sock,$rrsql) or die(mysqli_error($real_sock));
-        $rrsql = $start_sql;
-      }
+        '".$temp_list[2]."',
+        '".preg_replace("/[ #\/\\\:;,'\"`<>()]/i","", $temp_list[1])."',
+        '1',
+        now()),";
+        
+      
       
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 $rrsql = substr($rrsql, 0, -1);
+
 $res	=  mysqli_query($real_sock,$rrsql) or die(mysqli_error($real_sock));
 
 
-$sql	 = "update jira_excel_maintain  set 
-excel_state = 1,
-reg_datetime = '".$now_time."'
-
-
-
-
-      where jem_idx ='".$jem_idx."';";
-$res	=  mysqli_query($real_sock,$sql) or die(mysqli_error($real_sock));
 
 echo "<script>
 	alert('파일 업로드 성공');
-	parent.location.replace('/MZ_DSG_PLANNER/jira/jira_main.php');
+	parent.location.replace('/MZ_DSG_PLANNER/03_crawling/01_crawling_settiong.php');
 </script> ";
 
 
