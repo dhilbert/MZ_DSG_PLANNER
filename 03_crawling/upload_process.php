@@ -7,6 +7,7 @@ include_once('../lib/dbcon_MZ_DSG_PLANNER.php');
 
 $now_time =  date("Y-m-d H:i:s");
 
+$crawling_work = isset($_POST['crawling_work']) ? $_POST['crawling_work'] : "제목 없음";
 
 
 if(isset($_FILES['upfile']) && $_FILES['upfile']['name'] != "") {
@@ -55,6 +56,7 @@ $sql	= "
   insert crawling_file set 
   admin_idx		= '".$admin_idx."',
   crawling_flie_name		= '".$crawling_flie_name."',
+  crawling_work 		= '".$crawling_work."',
       
       crawling_flie_reg_date	= now()
 

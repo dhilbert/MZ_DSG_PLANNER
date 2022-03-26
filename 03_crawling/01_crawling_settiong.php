@@ -33,12 +33,14 @@ include_once('../contents_sidebar.php');
 
 					
 					<a href="product_samle.xlsx"  class="btn btn-success login-btn">양식다운로드</a>
+					<font color='red'> 제품명에 '  <- 이 문자 있으면 오류 남. </font>
 
 					<table data-toggle="table"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
 	<thead>
 		<tr>
 			<th data-field="s_99" data-sortable="true" >#</th>
 			<th data-field="s_0" data-sortable="true" >업로드일시</th>
+			<th data-field="s_4" data-sortable="true" >작업구분</th>
 			<th data-field="s_1" data-sortable="true" >업로드자</th>
 			<th data-field="s_2" data-sortable="true" >파일확인</th>	
 			<th data-field="s_3" data-sortable="true" >적용</th>
@@ -50,7 +52,7 @@ include_once('../contents_sidebar.php');
 	<?php
 		$count_n = 0;
 		$sql	 = "	
-				select a.crawling_flie_idx,a.crawling_flie_name,a.admin_idx,a.crawling_flie_reg_date,b.admin_name
+				select a.crawling_flie_idx,a.crawling_flie_name,a.admin_idx,a.crawling_flie_reg_date,b.admin_name,a.crawling_work
 					
 					from crawling_file as a 
 						Join admin_member as b
@@ -64,6 +66,7 @@ include_once('../contents_sidebar.php');
 			<tr>
 				<td data-field='s_99' data-sortable='true' >".$count_n."</td>
 				<td data-field='s_0' data-sortable='true' >".$info['crawling_flie_reg_date']."</td>
+				<td data-field='s_0' data-sortable='true' >".$info['crawling_work']."</td>
 				<td data-field='s_1' data-sortable='true' >".$info['admin_name']."</td>
 				<td data-field='s_2' data-sortable='true' ><a href='xlsx/".$info['crawling_flie_name']."'>다운로드</a></td>
 				<td data-field='s_3' data-sortable='true' ><a href='xml.php?crawling_flie_idx=".$info['crawling_flie_idx']."'>적용</a></td>
@@ -84,14 +87,21 @@ include_once('../contents_sidebar.php');
 
 
 <h1> 크롤링할 데이터 확인 </h1>
+
+
+<a href="del_crawling_truncate.php"  class="btn btn-success login-btn">테이블 비우기</a>
+ 
+
 <table data-toggle="table"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
 	<thead>
 		<tr>
 			<th data-field="s_99" data-sortable="true" >#</th>
 			<th data-field="s_0" data-sortable="true" >업체명</th>
+			<th data-field="s_0_1" data-sortable="true" >작업구분</th>
 			<th data-field="s_1" data-sortable="true" >상품명</th>
 			<th data-field="s_2" data-sortable="true" >sku</th>	
-			<th data-field="s_3" data-sortable="true" >가격</th>
+			<th data-field="s_3_1" data-sortable="true" >가격(정가)</th>
+			<th data-field="s_3_2" data-sortable="true" >가격(할인가)</th>
 			<th data-field="s_4" data-sortable="true" >등록일</th>
 			<th data-field="s_5" data-sortable="true" >적용 / 미적용</th>
 
@@ -102,7 +112,7 @@ include_once('../contents_sidebar.php');
 	<?php
 		$count_n = 0;
 		$sql	 = "	
-				select b.crawling_company_name,a.crawling_sku,a.crawling_price,a.crawling_name,a.crawling_status,a.crawling_reg_date,a.crawling_idx
+				select b.crawling_company_name,a.crawling_sku,a.crawling_price,a.crawling_name,a.crawling_status,a.crawling_reg_date,a.crawling_idx,a.crawling_dis,a.crawling_work
 					
 					from crawling as a 
 						JOIN 	crawling_company as b 
@@ -116,9 +126,11 @@ include_once('../contents_sidebar.php');
 			<tr>
 				<td data-field='s_99' data-sortable='true' >".$count_n."</td>
 				<td data-field='s_0' data-sortable='true' >".$info['crawling_company_name']."</td>
+				<td data-field='s_0_1' data-sortable='true' >".$info['crawling_work']."</td>
 				<td data-field='s_1' data-sortable='true' >".$info['crawling_name']."</td>
 				<td data-field='s_2' data-sortable='true' >".$info['crawling_sku']."</td>
-				<td data-field='s_3' data-sortable='true' >".$info['crawling_price']."</td>
+				<td data-field='s_s_3_1' data-sortable='true' >".$info['crawling_price']."</td>
+				<td data-field='s_s_3_2' data-sortable='true' >".$info['crawling_dis']."</td>
 				<td data-field='s_4' data-sortable='true' >".$info['crawling_reg_date']."</td>";
 
 				if($info['crawling_status']==1){
@@ -257,6 +269,15 @@ function formSubmit(f) {
       enctype="multipart/form-data" onsubmit="return formSubmit(this);">
 
     <div>
+
+
+			<div class="form-group">
+					<label>작업명</label>
+					
+					<input class="form-control" placeholder="Placeholder" name='crawling_work'>
+			</div>
+
+
 
         <label for="upfile">첨부파일</label>
 

@@ -26,18 +26,13 @@ include_once('../contents_sidebar.php');
 					<div class="panel-body">
 <?php
 
-$url = 'https://gmail.googleapis.com/gmail/v1/users/yoonhd@mz.co.kr/messages/17fac5d07bcbfcad?access_token=ya29.A0ARrdaM8jUXJeTC6U6neCQdxsFRI5dqu2cRtftvQB8_KP1wMg8nWIQVNiymMJu7lhp6gBu7CiWOZFKXAVD5bgY8yI2ICu_QIBc_5ZqbXUoDejwbQWFFHP2KlAl4xvACV7skJsxIDV0SKQP4t-OpiSuHtcUlXH';
-$response = file_get_contents($url);
-$object = json_decode($response,true);
-
-
-
-
-
-echo "메일 제목: ".$object['payload']['headers'][38]['value']."<p><p>";
-echo "메일 내용 : ".$object['snippet']."<p>";
-echo "보낸이 : ".$object['payload']['headers'][74]['value']."<p>";
-echo "받은시간: ".$object['payload']['headers'][1]['value']."<p>";
+		$url = 'https://gmail.googleapis.com/gmail/v1/users/yoonhd@mz.co.kr/messages/17fac5d07bcbfcad?access_token=ya29.A0ARrdaM8jUXJeTC6U6neCQdxsFRI5dqu2cRtftvQB8_KP1wMg8nWIQVNiymMJu7lhp6gBu7CiWOZFKXAVD5bgY8yI2ICu_QIBc_5ZqbXUoDejwbQWFFHP2KlAl4xvACV7skJsxIDV0SKQP4t-OpiSuHtcUlXH';
+		$response = file_get_contents($url);
+		$object = json_decode($response,true);
+		echo "메일 제목: ".$object['payload']['headers'][38]['value']."<p><p>";
+		echo "메일 내용 : ".$object['snippet']."<p>";
+		echo "보낸이 : ".$object['payload']['headers'][74]['value']."<p>";
+		echo "받은시간: ".$object['payload']['headers'][1]['value']."<p>";
 ?>
 <p><br>
 

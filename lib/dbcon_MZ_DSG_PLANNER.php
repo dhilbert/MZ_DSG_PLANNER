@@ -56,7 +56,56 @@ $med1 = date("Y-m-d H:i:s",$med);
 
 */
 
+
+
+
+
+function hd_thead_th($num,$name){
+	echo "<th data-field='s_".$num."' data-sortable='true' >".trim($name)."</th>";
+}
+function hd_tbody_td($num,$name){
+	echo "<td data-field='s_".$num."' data-sortable='true' >".trim($name)."</td>";
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 //함수 관리 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 function hd_findertype($temp_name){

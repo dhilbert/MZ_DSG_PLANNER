@@ -57,7 +57,6 @@ while($info	 = mysqli_fetch_array($res)){
 	';
 };
 
-
 ?>
 
 
@@ -217,23 +216,20 @@ while($info	 = mysqli_fetch_array($res)){
 
 
 
-
+//HF974VPUAVVTG9CFKQGMR5XE
 
 
 
 
 $url = "https://mz-dev.atlassian.net/rest/api/latest/search?jql=";
-
 $jql = "component in ('BAT글로') and fixVersion in".hd_last_text($temp_array)." and status in ".hd_last_text($temp_array1)."";
-$jql = "component in ('BAT글로') and fixVersion in".hd_last_text($temp_array)." and status in ".hd_last_text($temp_array1)."";
-
 $jql = urlencode($jql);
-$url = $url.$jql."&maxResults=2000&fields=key,ORDER%20BY%20key%20DESC";
+$url = $url.$jql."&maxResults=2000&fields=key";
+
 
 
 $username = 'yoonhd@mz.co.kr';
-
-$password = 'MCmZeIlRDEyrPdpySeeEF57D';
+$password = 'FR1NweD1qar5NlN2WPAeC954';
 
 $curl = curl_init();
 curl_setopt($curl, CURLOPT_USERPWD, "$username:$password");
@@ -251,15 +247,6 @@ $result = curl_exec($curl);
 
 
 
-
-
-
-function hd_thead_th($num,$name){
-	echo "<th data-field='s_".$num."' data-sortable='true' >".trim($name)."</th>";
-}
-function hd_tbody_td($num,$name){
-	echo "<td data-field='s_".$num."' data-sortable='true' >".trim($name)."</td>";
-}
 
 
 
@@ -315,8 +302,6 @@ for($i = 0 ; $i <count($ress['issues']); $i++){
 	$total_num+=1;
 	$temp_list = $ress['issues'][$i];
 
-	$username = 'yoonhd@mz.co.kr';
-	$password = 'MCmZeIlRDEyrPdpySeeEF57D';
 	$sub_url = $temp_list['self'];
 	
 	$sub_curl = curl_init();

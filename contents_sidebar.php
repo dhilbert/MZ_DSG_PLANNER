@@ -60,9 +60,13 @@ function hd_drop($num,$grobal,$sub_name,$sub_url){
 			hd_drop($num,$grobal,$sub_name,$sub_url);
 
 			$num		='hq-03';
-			$grobal		= '로레알 크롤링';
+			$grobal		= '로레알 가격 정보 크롤링';
 			$sub_name	= array('설정','크롤링');
-			$sub_url	= array("/MZ_DSG_PLANNER/03_crawling/01_crawling_settiong.php");
+			$sub_url	= array("/MZ_DSG_PLANNER/03_crawling/01_crawling_settiong.php",
+								"/MZ_DSG_PLANNER/03_crawling/01_crawling_0.php"
+		
+		
+		);
 			hd_drop($num,$grobal,$sub_name,$sub_url);
 
 
