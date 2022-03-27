@@ -50,4 +50,17 @@ function breadcrumb($array){
 		</div><!--/.row-->
 <?php
 }
+
+
+
+$sql	 = "select * from key_jira  Limit 1	";
+$res	=  mysqli_query($real_sock,$sql) or die(mysqli_error($real_sock));
+$info	 = mysqli_fetch_array($res);
+
+
+$username = $info['idss'];
+$password =  $info['keyss'];
+
+
+
 ?>

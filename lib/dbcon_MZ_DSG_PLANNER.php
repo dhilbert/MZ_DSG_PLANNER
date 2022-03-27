@@ -71,6 +71,43 @@ function hd_tbody_td($num,$name){
 
 
 
+function cute_jy_curl($username,$password,$url){
+
+	$curl = curl_init();
+	curl_setopt($curl, CURLOPT_USERPWD, "$username:$password");
+	curl_setopt($curl, CURLOPT_URL, $url);
+	curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
+	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+	curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+	curl_setopt($curl,CURLOPT_RETURNTRANSFER,1);
+	$ress=json_decode(curl_exec($curl),true);
+
+	return 	$ress;
+}
+
+
+function cute_jy_work_kind($comments){
+	$temp = explode("[",$comments );
+
+
+}
+
+
+function sub_cute_jy_curl($username,$password,$url){
+
+	$sub_curl = curl_init();
+	curl_setopt($sub_curl, CURLOPT_USERPWD, "$username:$password");
+	curl_setopt($sub_curl, CURLOPT_URL, $url);
+	curl_setopt($sub_curl, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($sub_curl, CURLOPT_FOLLOWLOCATION, 1);
+	curl_setopt($sub_curl, CURLOPT_SSL_VERIFYPEER, 0);
+	curl_setopt($sub_curl, CURLOPT_SSL_VERIFYHOST, 0);
+	curl_setopt($sub_curl,CURLOPT_RETURNTRANSFER,1);
+	$ress=json_decode(curl_exec($sub_curl),true);
+
+	return 	$ress;
+}
 
 
 

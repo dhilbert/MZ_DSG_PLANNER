@@ -9,6 +9,7 @@ include_once('../contents_sidebar.php');
 
 
 
+
 $jiraapi_fixversion_test = '';
 $temp_nu = 0;
 $sql	 = "select * from jiraapi_fixversion where jira_fix_status = 1;";
@@ -228,9 +229,6 @@ $url = $url.$jql."&maxResults=2000&fields=key";
 
 
 
-$username = 'yoonhd@mz.co.kr';
-$password = 'FR1NweD1qar5NlN2WPAeC954';
-
 $curl = curl_init();
 curl_setopt($curl, CURLOPT_USERPWD, "$username:$password");
 curl_setopt($curl, CURLOPT_URL, $url);
@@ -304,6 +302,7 @@ for($i = 0 ; $i <count($ress['issues']); $i++){
 
 	$sub_url = $temp_list['self'];
 	
+	
 	$sub_curl = curl_init();
 	curl_setopt($sub_curl, CURLOPT_USERPWD,"$username:$password");
 	curl_setopt($sub_curl, CURLOPT_URL, $sub_url);
@@ -352,7 +351,6 @@ for($i = 0 ; $i <count($ress['issues']); $i++){
 	echo "</tr>"	;
 	
 }
-
 
 ?>
 

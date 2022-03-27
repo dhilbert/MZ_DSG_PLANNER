@@ -38,11 +38,12 @@ include_once('../contents_sidebar.php');
 		<tr>
 			<th data-field="s_0" data-sortable="true" >#			</th>
 			<th data-field="s_1" data-sortable="true" >업무 유형	 </th>
-			<th data-field="s_2" data-sortable="true" >업체	 </th>
-			<th data-field="s_3" data-sortable="true" >컴포너트			 </th>			
+			
+			<th data-field="s_3" data-sortable="true" >업체			 </th>			
 			<th data-field="s_4" data-sortable="true" >템플릿 정보 	  </th>			
 			<th data-field="s_5" data-sortable="true" >등록자		  </th>
 			<th data-field="s_6" data-sortable="true" >등록일         </th>
+			<th data-field="s_8" data-sortable="true" >파일			 </th>		
 			<th data-field="s_7" data-sortable="true" >삭제</th>
 
 		</tr>
@@ -54,7 +55,7 @@ include_once('../contents_sidebar.php');
 		$now = date("Y-m-d H:i:s");
 
 		$sql	 = "	
-				select d.company_name,c.jira_comp_name,b.admin_name,a.indi_tem_title,a.indi_tem_maintext,a.indi_tem_regdate,a.indi_tem_idx
+				select c.jira_comp_name,b.admin_name,a.indi_tem_title,a.indi_tem_maintext,a.indi_tem_regdate,a.indi_tem_idx,a.indi_tem_path
 
 
 				from individual_template_main as a 
@@ -62,8 +63,7 @@ include_once('../contents_sidebar.php');
 				on a.admin_idx = b.admin_idx
 					join jiraapi_component as c 
 				on a.jira_comp_idx = c.jira_comp_idx
-					join admin_company_info as d	
-				on a.company_idx = d.company_idx	";
+						";
 
 		$res	=  mysqli_query($real_sock,$sql) or die(mysqli_error($real_sock));
 		while($info	 = mysqli_fetch_array($res)){
@@ -73,14 +73,16 @@ include_once('../contents_sidebar.php');
 				<tr>
 					<td data-field='s_0' data-sortable='true' >".$count_n."</td>
 					<td data-field='s_1' data-sortable='true' >".$info['indi_tem_title']."</td>
-					<td data-field='s_2' data-sortable='true' >".$info['company_name']."</td>
+					
 					<td data-field='s_3' data-sortable='true' >".$info['jira_comp_name']."</td>
 					<td data-field='s_4' data-sortable='true' >".str_replace("\r\n", "<br>", $info['indi_tem_maintext'])."</td>
 					<td data-field='s_5' data-sortable='true' >".$info['admin_name']."</td>
 					<td data-field='s_6' data-sortable='true' >".$info['indi_tem_regdate']."</td>
+					<td data-field='s_8' data-sortable='true' ><a href='".$info['indi_tem_path']."'>다운로드</a></td>
 					<td data-field='s_7' data-sortable='true' ><a href = '99_0_mysettiong_main_del_proc.php?indi_tem_idx=".$info['indi_tem_idx']."' class='btn btn-danger login-btn'>삭제</a></td>
 		
-		
+					
+					
 		
 		
 				</tr>		
@@ -113,8 +115,6 @@ include_once('../contents_sidebar.php');
 ?>
 
 
-
-
 <div class="modal fade" id="99_0_mysettiong_main_0" role="dialog">
 	<div class="modal-dialog modal-lg">
 		<!-- Modal content-->
@@ -126,7 +126,10 @@ include_once('../contents_sidebar.php');
 				
 					<div class="form-group">
 
-					<form name="frm" role="form" method="get" action="99_0_mysettiong_main_proc.php">
+
+
+
+					<form  name="uploadForm" id="uploadForm" method="POST" action="99_0_mysettiong_main_proc.php" enctype="multipart/form-data" onsubmit="return formSubmit(this);">
 
 						<label>업무 유형</label>							
 							<input class='form-control'		name = 'indi_tem_title'	style='background-color:'><p><br>
@@ -140,25 +143,117 @@ include_once('../contents_sidebar.php');
 								};
 							?>
 							</select>
-						<label>회사 선택</label>
-						<select class="form-control" name = 'company_idx'>
-							<?php
-								$admin_company_info_sql	 = "select * from admin_company_info;";
-								$admin_company_info_res	=  mysqli_query($real_sock,$admin_company_info_sql) or die(mysqli_error($real_sock));
-								while($admin_company_info_info	 = mysqli_fetch_array($admin_company_info_res)){
-										echo "<option value = '".$admin_company_info_info['company_idx']."'>".$admin_company_info_info['company_name']."</option>";
-								};
-							?>
-							</select>
-							<div class="form-group">
-									<label>템플릿 입력</label>
-									<textarea class="form-control" rows="4" name ='indi_tem_maintext'></textarea>
-							</div>
+				
+						
+							<meta charset="utf-8">
+    <title>CKEditor 5 - Classic editor</title>
+    <script src="https://cdn.ckeditor.com/ckeditor5/33.0.0/classic/ckeditor.js"></script>
+	<style>
+	.ck.ck-editor {
+    	max-width: 100%;
+	}
+	.ck-editor__editable {
+	    min-height: 300px;
+	}
+	</style>
+<p>
+<p>
+<p>
+<label>템플릿</label>
+<p>
+<p>※ 아직 이미지 업로드 못함. 
+        <textarea name="content" id="editor">
+		<figure class="table"><table><tbody><tr><td>&nbsp;</td><td>SSG</td><td>AK mall</td><td>Galleria</td><td>Hmall</td><td>LotteOn</td><td>Imall</td><td>kakao</td></tr><tr><td>사이즈</td><td>PC&amp;모바일 : width=1280px</td><td>PC&amp;모바일 : width=1070px</td><td>PC&amp;모바일 : width=1280px</td><td>PC&amp;모바일 : width=800px</td><td>PC&amp;모바일 : width=1140px</td><td>PC&amp;모바일 width="1200"</td><td>PC&amp;모바일 : width=750px</td></tr><tr><td>비고</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>파일크기 3MB미만</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table>     </textarea>
+        
+    
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '#editor' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
 
 
 
+<script type="text/javascript">
+
+function formSubmit(f) {
+
+    // 업로드 할 수 있는 파일 확장자를 제한합니다.
+
+	var extArray = new Array('xlsx','pptx','pdf');
+
+	var path = document.getElementById("upfile").value;
+
+	if(path == "") {
+
+		alert("파일을 선택해 주세요.");
+
+		return false;
+
+	}
+
+	
+
+	var pos = path.indexOf(".");
+
+	if(pos < 0) {
+
+		alert("엑셀 파일, 양식에 맞게 업로드하시오");
+		echo pos;
+		return false;
+
+	}
+
+	
+
+	var ext = path.slice(path.indexOf(".") + 1).toLowerCase();
+
+	var checkExt = false;
+
+	for(var i = 0; i < extArray.length; i++) {
+
+		if(ext == extArray[i]) {
+
+			checkExt = true;
+
+			break;
+
+		}
+
+	}
 
 
+
+	if(checkExt == false) {
+
+		alert("엑셀 파일, 양식에 맞게 업로드하시오");
+
+	    return false;
+
+	}
+
+	
+
+	return true;
+
+}
+
+</script>
+
+
+
+    <div>
+
+
+			
+
+
+        <label for="upfile">첨부파일</label>
+		<b><font color='red'>※ 파일 명에 "." 포함되면 에러 메세지 노출됨.</font>
+		
+        <input type="file" name="upfile" id="upfile" />
 
 
 
@@ -193,3 +288,4 @@ include_once('../contents_sidebar.php');
 		</div>
 	</div>
 </div>
+

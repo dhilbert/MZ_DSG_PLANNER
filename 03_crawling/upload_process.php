@@ -10,6 +10,9 @@ $now_time =  date("Y-m-d H:i:s");
 $crawling_work = isset($_POST['crawling_work']) ? $_POST['crawling_work'] : "제목 없음";
 
 
+
+
+
 if(isset($_FILES['upfile']) && $_FILES['upfile']['name'] != "") {
 
     $file = $_FILES['upfile'];

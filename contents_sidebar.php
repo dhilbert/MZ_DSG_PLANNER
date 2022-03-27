@@ -56,7 +56,7 @@ function hd_drop($num,$grobal,$sub_name,$sub_url){
 			$num		='hq-02';
 			$grobal		= '업체별 주간 보고';
 			$sub_name	= array('KBO(1식)','로레얄(2식)');
-			$sub_url	= array("/MZ_DSG_PLANNER/02_weekreport/01_KBO.php");
+			$sub_url	= array("/MZ_DSG_PLANNER/02_weekreport/01_KBO.php","/MZ_DSG_PLANNER/02_weekreport/02_loreal.php");
 			hd_drop($num,$grobal,$sub_name,$sub_url);
 
 			$num		='hq-03';
@@ -67,6 +67,11 @@ function hd_drop($num,$grobal,$sub_name,$sub_url){
 		
 		
 		);
+			hd_drop($num,$grobal,$sub_name,$sub_url);
+			$num		='hq-05';
+			$grobal		= '지라관리';
+			$sub_name	= array('동기화');
+			$sub_url	= array("/MZ_DSG_PLANNER/05_jira_update/jira_update_main.php");
 			hd_drop($num,$grobal,$sub_name,$sub_url);
 
 

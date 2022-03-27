@@ -16,5 +16,22 @@
 <!-- GA 코드 -->
 
 
+<script>
+        ClassicEditor
+            .create( document.querySelector( '#editor' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
+	
+	<script src="https://cdn.ckeditor.com/ckeditor5/33.0.0/classic/ckeditor.js"></script>
+	<style>
+	.ck.ck-editor {
+    	max-width: 100%;
+	}
+	.ck-editor__editable {
+	    min-height: 300px;
+	}
+	</style>
 
 </head>
