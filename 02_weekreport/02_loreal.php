@@ -116,6 +116,7 @@ $want_sql = '(';
 				$name="구성요소";hd_thead_th($num,$name);$num+=1;
 				$name="메일제목";hd_thead_th($num,$name);$num+=1;
 				$name="지라링크";hd_thead_th($num,$name);$num+=1;
+				$name="고객명";hd_thead_th($num,$name);$num+=1;
 				$name="기획자";hd_thead_th($num,$name);$num+=1;
 				$name="작업자";hd_thead_th($num,$name);$num+=1;
 				
@@ -142,7 +143,7 @@ SELECT a.customfield_12265,a.environment,a.jmi_key,a.jmi_summary,a.jmi_assignee_
 
 (select count(*) from jirasync_work where jmi_inx = a.jmi_inx and comment_kind='수정') as temp1,
 
-(select sum(timeSpentSeconds) from jirasync_work where jmi_inx = a.jmi_inx ) as temp2,a.customfield_12262
+(select sum(timeSpentSeconds) from jirasync_work where jmi_inx = a.jmi_inx ) as temp2,a.customfield_12262,a.customfield_12261
 
 
 
@@ -153,6 +154,27 @@ where a.components =' 로레알_아르마니 '
 and a.status in ".$want_sql."
 
 ";
+
+$sql	 = "
+SELECT a.customfield_12265,a.environment,a.jmi_key,a.jmi_summary,a.jmi_assignee_name,a.jmi_reporter_name,a.status,a.customfield_12271,a.customfield_12270,a.customfield_12268,a.customfield_12269,a.jmi_inx,
+
+(select count(*) from jirasync_work where jmi_inx = a.jmi_inx and comment_kind='수정') as temp1,
+
+(select sum(timeSpentSeconds) from jirasync_work where jmi_inx = a.jmi_inx ) as temp2,a.customfield_12262,a.customfield_12261
+
+
+
+FROM jirasync_main_info as a
+
+
+where a.jmi_key in ('MZNO-49195','MZNO-49395','MZNO-49358','MZNO-49401','MZNO-49389','MZNO-49388','MZNO-49479','MZNO-49579','MZNO-49572','MZNO-49595','MZNO-49609')
+order by temp2 DESC
+";
+
+
+
+
+
 $res	=  mysqli_query($real_sock,$sql) or die(mysqli_error($real_sock));
 while($info	 = mysqli_fetch_array($res)){
 	echo "<tr>";
@@ -182,6 +204,7 @@ while($info	 = mysqli_fetch_array($res)){
 		
 		
 		$name = "<a href='https://mz-dev.atlassian.net/browse/".$info['jmi_key']."'>".$info['jmi_summary']."</a>";	hd_tbody_td($num,$name);$num+=1;
+		$name = $info['customfield_12261'] ;	hd_tbody_td($num,$name);$num+=1;
 		$name = $info['jmi_reporter_name'] ;	hd_tbody_td($num,$name);$num+=1;
 		$name = $info['jmi_assignee_name'] ;	hd_tbody_td($num,$name);$num+=1;
 		

@@ -4,7 +4,7 @@ include_once('../lib/dbcon_MZ_DSG_PLANNER.php');
 
 include_once('../contents_header.php');
 include_once('../contents_profile.php');
-include_once('../contents_sidebar.php');
+//include_once('../contents_sidebar.php');
 
 include_once('crawling.php');
 //$name = $total_num ;$temp_text=$temp_text.hd_tbody_td($num,$name);$num+=1;
@@ -157,7 +157,7 @@ while($info	 = mysqli_fetch_array($res)){
 	$temp_list = array($info['crawling_dis'],$check[3]);
 	$temp_text = hd_tbody_td_text_check2($temp_text,$num,$temp_list);	$num += 1;
 	$error_check_temp +=hd_error_check2($temp_list);
-	
+
 	
 	$temp_list = array($check[4],$check[4]);
 	$temp_text = hd_tbody_td_text_check($temp_text,$num,$temp_list);	$num += 1;
@@ -207,7 +207,6 @@ while($info	 = mysqli_fetch_array($res)){
 		$cute_jy_check1 += $error_check_temp ;//틀린 항목
 		
 	}
-	
 	
 	
 }
@@ -269,7 +268,7 @@ $cute_jy = $cute_jy_error.$cute_jy_want;
 							<svg class="glyph stroked empty-message"><use xlink:href="#stroked-empty-message"></use></svg>
 						</div>
 						<div class="col-sm-9 col-lg-7 widget-right">
-							<div class="large"><?php echo $cute_jy_check2- $cute_jy_check3  ?></div>
+							<div class="large"><?php echo $cute_jy_check2 ?></div>
 							<div class="text-muted">다른 사이트</div>
 							
 						

@@ -180,8 +180,7 @@ function lotte_crawling($sku){
     $snoopy = new Snoopy;
     $snoopy->fetch($url);
     $origin_html = $snoopy->results;    
-
-    
+  
     $want_text = explode('meta property="og:image" content="',$origin_html);
     $want_text = explode('">',hd_jy_crawlong($want_text,1));
     $img =  "<img src='".hd_jy_crawlong($want_text,0)."'>";
@@ -222,7 +221,8 @@ function imall_crawling($sku){
     $url = 'https://www.lotteimall.com/goods/viewGoodsDetail.lotte?goods_no='.$sku;       
     $snoopy = new Snoopy;
     $snoopy->fetch($url);
-    $origin_html = $snoopy->results;               
+    $origin_html = $snoopy->results;     
+    
     $want_text = explode('<div class="thumb_product">',$origin_html);
     $want_text = explode('<img  src="',hd_jy_crawlong($want_text,1));
     $want_text = explode('" onError="',hd_jy_crawlong($want_text,1));
@@ -234,11 +234,11 @@ function imall_crawling($sku){
 
 
     $want_text = explode('<span class="line">',$origin_html);
-    $want_text = explode('</span> 원</span>',hd_jy_crawlong($want_text,1));
+    $want_text = explode('</span>',hd_jy_crawlong($want_text,1));
     $real_price = hd_jy_crawlong($want_text,0);
 
     
-    $want_text = explode('<span class="num">',hd_jy_crawlong($want_text,1));
+    $want_text = explode('<span class="num">',$origin_html);
     $want_text = explode('</span>',hd_jy_crawlong($want_text,1));
     $dis_price = hd_jy_crawlong($want_text,0);
 
