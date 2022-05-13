@@ -109,10 +109,9 @@ for($i = 0 ; $i <count($ress['issues']); $i++){
 
 	$temps_list = $ress['issues'][$i];	
 	
-	$url = "https://mz-dev.atlassian.net/rest/api/latest/issue/".$temps_list['key']."";
+	$url = "https://mz-dev.atlassian.net/rest/api/latest/issue/".$temps_list['key']."?fields=key,id,fixVersions,summary,status,priority,reporter,updated,created,lastViewed,labels,components,assignee,timetracking,description,customfield_12261,environment,customfield_12262,customfield_12265,customfield_12270,customfield_12271,customfield_12267,customfield_12266,customfield_10600,customfield_12268,customfield_12269,statuscategorychangedate";
 
-	
-	
+
 	//?fields=id,key,summary
 	$sub_ress=sub_cute_jy_curl($username,$password,$url);
 
@@ -160,7 +159,7 @@ for($i = 0 ; $i <count($ress['issues']); $i++){
 		$value = isset($sub_ress['fields']['timetracking']['originalEstimate']) ? $sub_ress['fields']['timetracking']['originalEstimate'] : null;
 		$value =cute_jy_string($value);	
 		if($value!=Null){array_push($col_array,array($text,$value));	}
-
+		
 		$text = 'originalEstimateSeconds';	
 		$value = isset($sub_ress['fields']['timetracking']['originalEstimateSeconds']) ? $sub_ress['fields']['timetracking']['originalEstimateSeconds'] : null;
 		$value =cute_jy_string($value);
@@ -170,7 +169,7 @@ for($i = 0 ; $i <count($ress['issues']); $i++){
 	    $value = isset($sub_ress['fields']['description']) ? $sub_ress['fields']['description'] : null;
 		$value =cute_jy_string($value);
 	    if($value!=Null){array_push($col_array,array($text,$value));	}
-
+		
 		$text = 'customfield_12261';	
 	    $value = isset($sub_ress['fields']['customfield_12261']) ? $sub_ress['fields']['customfield_12261'] : null;
 		$value =cute_jy_string($value);
@@ -185,27 +184,27 @@ for($i = 0 ; $i <count($ress['issues']); $i++){
 	    $value = isset($sub_ress['fields'][$text ]) ? $sub_ress['fields'][$text ] : null;
 		$value =cute_jy_string($value);
 	    if($value!=Null){array_push($col_array,array($text,$value));	}
-
+		
 		$text = 'customfield_12265';	
 	    $value = isset($sub_ress['fields'][$text ]) ? $sub_ress['fields'][$text ] : null;
 		$value =cute_jy_string($value);
 	    if($value!=Null){array_push($col_array,array($text,$value));	}
-
+		
 		$text = 'customfield_12270';	
 	    $value = isset($sub_ress['fields'][$text ]) ? $sub_ress['fields'][$text ] : null;
 		$value =cute_jy_string($value);
 	    if($value!=Null){array_push($col_array,array($text,$value));	}
-
+		
 		$text = 'customfield_12271';	
 	    $value = isset($sub_ress['fields'][$text ]) ? $sub_ress['fields'][$text ] : null;
 		$value =cute_jy_string($value);
 	    if($value!=Null){array_push($col_array,array($text,$value));	}
-
+		
 		$text = 'customfield_12266';	
 	    $value = isset($sub_ress['fields'][$text ]) ? $sub_ress['fields'][$text ] : null;
 		$value =cute_jy_string($value);
 	    if($value!=Null){array_push($col_array,array($text,$value));	}
-
+		
 		$text = 'customfield_12267';	
 	    $value = isset($sub_ress['fields'][$text ]) ? $sub_ress['fields'][$text ] : null;
 		$value =cute_jy_string($value);
@@ -340,11 +339,51 @@ WHERE STATUS = "닫힘" AND customfield_12269="";';
 
 
 
+
+	$sql	 = "select * from jirasync_work where check_date is null 	";
+	$res	=  mysqli_query($real_sock,$sql) or die(mysqli_error($real_sock));
+	while($info	 = mysqli_fetch_array($res)){
+
+
+		$temp = explode("T",$info['started']);
+
+		$jira_update_sql	= "
+		UPDATE 		jirasync_work set 
+		check_date = '".$temp[0]."'
+		
+		WHERE jw_dix = ".$info['jw_dix'];
+		$jira_update_res	=  mysqli_query($real_sock,$jira_update_sql) or die(mysqli_error($real_sock));
+		
+
+
+
+	};
+	
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
 	echo "<script>
 	alert('업데이트 완료.');
 	parent.location.replace('/MZ_DSG_PLANNER/05_jira_update/jira_update_main.php');
 	</script> ";
-
 
 
 	?>

@@ -49,7 +49,7 @@ function hd_drop($num,$grobal,$sub_name,$sub_url){
 			$grobal		= '지라 관리';
 			$sub_name	= array('지라 생성');
 			$sub_url	= array("/MZ_DSG_PLANNER/01_workflow/01_workflow.php");
-			hd_drop($num,$grobal,$sub_name,$sub_url);
+			//hd_drop($num,$grobal,$sub_name,$sub_url);
 
 
 
@@ -63,10 +63,7 @@ function hd_drop($num,$grobal,$sub_name,$sub_url){
 			$grobal		= '로레알 가격 정보 크롤링';
 			$sub_name	= array('설정','크롤링');
 			$sub_url	= array("/MZ_DSG_PLANNER/03_crawling/01_crawling_settiong.php",
-								"/MZ_DSG_PLANNER/03_crawling/01_crawling_0.php"
-		
-		
-		);
+								"/MZ_DSG_PLANNER/03_crawling/01_crawling_0.php"	);
 			hd_drop($num,$grobal,$sub_name,$sub_url);
 			$num		='hq-05';
 			$grobal		= '지라관리';
@@ -74,6 +71,15 @@ function hd_drop($num,$grobal,$sub_name,$sub_url){
 			$sub_url	= array("/MZ_DSG_PLANNER/05_jira_update/jira_update_main.php");
 			hd_drop($num,$grobal,$sub_name,$sub_url);
 
+
+
+			
+			$num		='hq-06';
+			$grobal		= '월간보고서';
+			$sub_name	= array('메트라이프');
+			$sub_url	= array("/MZ_DSG_PLANNER/06_monthreport/01_metlife.php");
+			hd_drop($num,$grobal,$sub_name,$sub_url);
+				
 
 			$num		='hq-99';
 			$grobal		= '설정';

@@ -42,8 +42,51 @@ $jiraapi_status = isset($_GET['jiraapi_status']) ? $_GET['jiraapi_status'] : $Li
 							<tr>	
 							<td>Loreal 주간 보고서<td>
 								<!--01_Loreal_down.php?<?php echo $temp_url[1] ; ?>-->
-							<td><a href="#" class="btn btn-success login-btn" >            엑셀다운로드  (공사중)   </a>   <td>
+							<td>
+							<div class="form-group">
+							<form name="frm" role="form" method="get" action="02_loreal_down.php">
+<?php
 
+
+
+
+	
+$want_sql = '(';	
+
+	for($i = 0 ; $i < count($List)   ; $i++){
+
+		$temp_checked = "";
+		if(in_array($List[$i],$jiraapi_status))	{
+			$temp_checked = "checked";
+			$want_sql = $want_sql."'".$List[$i]."',";
+
+		}
+		echo '
+				<input type="hidden" value="'.$List[$i].'"  name="jiraapi_status[]" '.$temp_checked.' >
+			
+	';
+
+
+
+
+	}
+	$want_sql =  substr($want_sql, 0, -1);
+	$want_sql = $want_sql.')';
+	?>
+</div>
+
+<input  type='submit' class="btn btn-success login-btn" type="submit" value="엑셀 다운로드">
+					
+				</form>	
+							
+							
+							
+							
+							
+							
+							
+							
+						
 							</tr>	
 						</table>
 					</div>
@@ -116,6 +159,8 @@ $want_sql = '(';
 				$name="구성요소";hd_thead_th($num,$name);$num+=1;
 				$name="메일제목";hd_thead_th($num,$name);$num+=1;
 				$name="지라링크";hd_thead_th($num,$name);$num+=1;
+				
+				$name="지라번호";hd_thead_th($num,$name);$num+=1;
 				$name="고객명";hd_thead_th($num,$name);$num+=1;
 				$name="기획자";hd_thead_th($num,$name);$num+=1;
 				$name="작업자";hd_thead_th($num,$name);$num+=1;
@@ -154,7 +199,7 @@ where a.components =' 로레알_아르마니 '
 and a.status in ".$want_sql."
 
 ";
-
+/*
 $sql	 = "
 SELECT a.customfield_12265,a.environment,a.jmi_key,a.jmi_summary,a.jmi_assignee_name,a.jmi_reporter_name,a.status,a.customfield_12271,a.customfield_12270,a.customfield_12268,a.customfield_12269,a.jmi_inx,
 
@@ -170,7 +215,7 @@ FROM jirasync_main_info as a
 where a.jmi_key in ('MZNO-49195','MZNO-49395','MZNO-49358','MZNO-49401','MZNO-49389','MZNO-49388','MZNO-49479','MZNO-49579','MZNO-49572','MZNO-49595','MZNO-49609')
 order by temp2 DESC
 ";
-
+*/
 
 
 
@@ -204,6 +249,7 @@ while($info	 = mysqli_fetch_array($res)){
 		
 		
 		$name = "<a href='https://mz-dev.atlassian.net/browse/".$info['jmi_key']."'>".$info['jmi_summary']."</a>";	hd_tbody_td($num,$name);$num+=1;
+		$name = $info['jmi_key'] ;	hd_tbody_td($num,$name);$num+=1;
 		$name = $info['customfield_12261'] ;	hd_tbody_td($num,$name);$num+=1;
 		$name = $info['jmi_reporter_name'] ;	hd_tbody_td($num,$name);$num+=1;
 		$name = $info['jmi_assignee_name'] ;	hd_tbody_td($num,$name);$num+=1;
