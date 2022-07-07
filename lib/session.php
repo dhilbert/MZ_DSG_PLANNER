@@ -14,5 +14,6 @@ $jira_id = $_SESSION['jira_id'];
 
 
 
+set_time_limit(0);
 
 ?>

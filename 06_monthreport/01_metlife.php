@@ -39,7 +39,6 @@ function cute_jy_met_date_trance($date){
   return $temp[0].$temp[1].$temp[2];
 }
 
-
 function cute_jy_met_table_td($url,$text1,$value,$s_text,$b_text){
   echo "<tr>";
   
@@ -136,7 +135,7 @@ echo "<td>".$value."</td>";
           <tbody>
            <?php 
 $last_check = 0;
-$url = "https://analytics.google.com/analytics/web/#/report/visitors-overview/a63821144w99505338p103457030/_u.date00=".cute_jy_met_date_trance($u_date00)."&_u.date01=".cute_jy_met_date_trance($u_date01);
+$url = "https://analytics.google.com/analytics/web/#/report/visitors-overview/a63821144w99505338p186255958/_u.date00=".cute_jy_met_date_trance($u_date00)."&_u.date01=".cute_jy_met_date_trance($u_date01);
 $text1 = "일별사용자정보";
 $value = "1";
 $b_text = cute_jy_complete_check2($value,$check_cute_jy_pretty);
@@ -145,7 +144,7 @@ if($b_text=='success'){$last_check+=1;}
 cute_jy_met_table_td($url,$text1,$value,$s_text,$b_text);
 
 
-$url = "https://analytics.google.com/analytics/web/#/report/content-pages/a63821144w99505338p103457030/_u.date00=".cute_jy_met_date_trance($u_date00)."&_u.date01=".cute_jy_met_date_trance($u_date01)."&explorer-table.plotKeys=%5B%5D&explorer-table.rowStart=0&explorer-table.rowCount=1000/";
+$url = "https://analytics.google.com/analytics/web/#/report/content-pages/a63821144w99505338p186255958/_u.date00=".cute_jy_met_date_trance($u_date00)."&_u.date01=".cute_jy_met_date_trance($u_date01)."&explorer-table.plotKeys=%5B%5D&explorer-table.rowStart=0&explorer-table.rowCount=1000/";
 $text1 = "행동 > 사이트 콘텐츠 > 모든 페이지";
 $value = "2";$b_text = cute_jy_complete_check2($value,$check_cute_jy_pretty);
 $s_text = cute_jy_complete_check($value,$check_cute_jy_pretty);
@@ -153,7 +152,7 @@ if($b_text=='success'){$last_check+=1;}
 cute_jy_met_table_td($url,$text1,$value,$s_text,$b_text);
 
 $text = "article";
-$url = "https://analytics.google.com/analytics/web/#/report/content-pages/a63821144w99505338p103457030/_u.date00=".cute_jy_met_date_trance($u_date00)."&_u.date01=".cute_jy_met_date_trance($u_date01);
+$url = "https://analytics.google.com/analytics/web/#/report/content-pages/a63821144w99505338p186255958/_u.date00=".cute_jy_met_date_trance($u_date00)."&_u.date01=".cute_jy_met_date_trance($u_date01);
 $url = $url."&explorer-table.plotKeys=%5B%5D&explorer-table.rowCount=1000&explorer-table.filter=~2F".$text."~2F&explorer-table-dataTable.sortColumnName=analytics.avgPageDuration&explorer-table-dataTable.sortDescending=true/";
 $text1 = "행동 > 사이트 콘텐츠 > 모든 페이지>".$text;
 $value += 1;
@@ -164,7 +163,7 @@ cute_jy_met_table_td($url,$text1,$value,$s_text,$b_text);
 
 
 $text = "story";
-$url = "https://analytics.google.com/analytics/web/#/report/content-pages/a63821144w99505338p103457030/_u.date00=".cute_jy_met_date_trance($u_date00)."&_u.date01=".cute_jy_met_date_trance($u_date01);
+$url = "https://analytics.google.com/analytics/web/#/report/content-pages/a63821144w99505338p186255958/_u.date00=".cute_jy_met_date_trance($u_date00)."&_u.date01=".cute_jy_met_date_trance($u_date01);
 $url = $url."&explorer-table.plotKeys=%5B%5D&explorer-table.rowCount=1000&explorer-table.filter=~2F".$text."~2F&explorer-table-dataTable.sortColumnName=analytics.avgPageDuration&explorer-table-dataTable.sortDescending=true/";
 $text1 = "행동 > 사이트 콘텐츠 > 모든 페이지>".$text;
 $value += 1;
@@ -173,7 +172,7 @@ $s_text = cute_jy_complete_check($value,$check_cute_jy_pretty);
 if($b_text=='success'){$last_check+=1;}
 cute_jy_met_table_td($url,$text1,$value,$s_text,$b_text);
 $text = "biz";
-$url = "https://analytics.google.com/analytics/web/#/report/content-pages/a63821144w99505338p103457030/_u.date00=".cute_jy_met_date_trance($u_date00)."&_u.date01=".cute_jy_met_date_trance($u_date01);
+$url = "https://analytics.google.com/analytics/web/#/report/content-pages/a63821144w99505338p186255958/_u.date00=".cute_jy_met_date_trance($u_date00)."&_u.date01=".cute_jy_met_date_trance($u_date01);
 $url = $url."&explorer-table.plotKeys=%5B%5D&explorer-table.rowCount=1000&explorer-table.filter=~2F".$text."~2F&explorer-table-dataTable.sortColumnName=analytics.avgPageDuration&explorer-table-dataTable.sortDescending=true/";
 $text1 = "행동 > 사이트 콘텐츠 > 모든 페이지>".$text;
 $value += 1;
@@ -184,7 +183,7 @@ cute_jy_met_table_td($url,$text1,$value,$s_text,$b_text);
 
 
 $text = "about";
-$url = "https://analytics.google.com/analytics/web/#/report/content-pages/a63821144w99505338p103457030/_u.date00=".cute_jy_met_date_trance($u_date00)."&_u.date01=".cute_jy_met_date_trance($u_date01);
+$url = "https://analytics.google.com/analytics/web/#/report/content-pages/a63821144w99505338p186255958/_u.date00=".cute_jy_met_date_trance($u_date00)."&_u.date01=".cute_jy_met_date_trance($u_date01);
 $url = $url."&explorer-table.plotKeys=%5B%5D&explorer-table.rowCount=1000&explorer-table.filter=~2F".$text."~2F&explorer-table-dataTable.sortColumnName=analytics.avgPageDuration&explorer-table-dataTable.sortDescending=true/";
 $text1 = "행동 > 사이트 콘텐츠 > 모든 페이지>".$text;
 $value += 1;
@@ -194,7 +193,7 @@ if($b_text=='success'){$last_check+=1;}
 cute_jy_met_table_td($url,$text1,$value,$s_text,$b_text);
 
 $text = "auth";
-$url = "https://analytics.google.com/analytics/web/#/report/content-pages/a63821144w99505338p103457030/_u.date00=".cute_jy_met_date_trance($u_date00)."&_u.date01=".cute_jy_met_date_trance($u_date01);
+$url = "https://analytics.google.com/analytics/web/#/report/content-pages/a63821144w99505338p186255958/_u.date00=".cute_jy_met_date_trance($u_date00)."&_u.date01=".cute_jy_met_date_trance($u_date01);
 $url = $url."&explorer-table.plotKeys=%5B%5D&explorer-table.rowCount=1000&explorer-table.filter=~2F".$text."~2F&explorer-table-dataTable.sortColumnName=analytics.avgPageDuration&explorer-table-dataTable.sortDescending=true/";
 $text1 = "행동 > 사이트 콘텐츠 > 모든 페이지>".$text;
 $value += 1;
@@ -203,7 +202,7 @@ $s_text = cute_jy_complete_check($value,$check_cute_jy_pretty);
 if($b_text=='success'){$last_check+=1;}
 cute_jy_met_table_td($url,$text1,$value,$s_text,$b_text);
 
-$url = "https://analytics.google.com/analytics/web/#/report/trafficsources-all-traffic/a63821144w99505338p103457030/_u.date00=".cute_jy_met_date_trance($u_date00)."&_u.date01=".cute_jy_met_date_trance($u_date01);
+$url = "https://analytics.google.com/analytics/web/#/report/trafficsources-all-traffic/a63821144w99505338p186255958/_u.date00=".cute_jy_met_date_trance($u_date00)."&_u.date01=".cute_jy_met_date_trance($u_date01);
 $url = $url."&explorer-table.plotKeys=%5B%5D&explorer-table.rowStart=0&explorer-table.rowCount=5000";
 $text1 = "획득 > 전체 트래픽 > 소스 / 매체";
 $value += 1;
@@ -213,7 +212,7 @@ if($b_text=='success'){$last_check+=1;}
 cute_jy_met_table_td($url,$text1,$value,$s_text,$b_text);
 
 
-$url = "https://analytics.google.com/analytics/web/#/report/content-pages/a63821144w99505338p103457030/_u.date00=".cute_jy_met_date_trance($u_date00)."&_u.date01=".cute_jy_met_date_trance($u_date01);
+$url = "https://analytics.google.com/analytics/web/#/report/content-pages/a63821144w99505338p186255958/_u.date00=".cute_jy_met_date_trance($u_date00)."&_u.date01=".cute_jy_met_date_trance($u_date01);
 $url = $url."&explorer-table.plotKeys=%5B%5D&explorer-table.rowCount=2500&explorer-table.advFilter=%5B%5B0,%22analytics.pagePath%22,%22PT%22,%22read%22,0%5D,%5B0,%22analytics.pagePath%22,%22PT%22,%22program%22,1%5D,%5B0,%22analytics.pagePath%22,%22PT%22,%22page%22,1%5D%5D";
 $text1 = "행동 > 사이트 콘텐츠 > 모든사이트 (이번달)";
 $value += 1;
@@ -222,7 +221,7 @@ $s_text = cute_jy_complete_check($value,$check_cute_jy_pretty);
 if($b_text=='success'){$last_check+=1;}
 cute_jy_met_table_td($url,$text1,$value,$s_text,$b_text);
 
-$url = "https://analytics.google.com/analytics/web/#/report/content-pages/a63821144w99505338p103457030/_u.date00=20140613&_u.date01=".cute_jy_met_date_trance($u_date01);
+$url = "https://analytics.google.com/analytics/web/#/report/content-pages/a63821144w99505338p186255958/_u.date00=20140613&_u.date01=".cute_jy_met_date_trance($u_date01);
 $url = $url."&explorer-table.plotKeys=%5B%5D&explorer-table.rowCount=2500&explorer-table.advFilter=%5B%5B0,%22analytics.pagePath%22,%22PT%22,%22read%22,0%5D,%5B0,%22analytics.pagePath%22,%22PT%22,%22program%22,1%5D,%5B0,%22analytics.pagePath%22,%22PT%22,%22page%22,1%5D%5D";
 $text1 = "행동 > 사이트 콘텐츠 > 모든사이트 (전체)";
 $value += 1;
@@ -232,7 +231,7 @@ if($b_text=='success'){$last_check+=1;}
 cute_jy_met_table_td($url,$text1,$value,$s_text,$b_text);
 
 
-$url = "https://analytics.google.com/analytics/web/#/report/content-event-events/a63821144w99505338p103457030/_u.date00=".cute_jy_met_date_trance($u_date00)."&_u.date01=".cute_jy_met_date_trance($u_date01);
+$url = "https://analytics.google.com/analytics/web/#/report/content-event-events/a63821144w99505338p186255958/_u.date00=".cute_jy_met_date_trance($u_date00)."&_u.date01=".cute_jy_met_date_trance($u_date01);
 $url = $url."&explorer-segmentExplorer.segmentId=analytics.eventLabel&explorer-table.plotKeys=%5B%5D&explorer-table.rowStart=0&explorer-table.rowCount=250/";
 $text1 = "행동 > 이벤트 > 인기 이벤트 ";
 $s_text = cute_jy_complete_check($value,$check_cute_jy_pretty);
@@ -254,7 +253,7 @@ cute_jy_met_table_td($url,$text1,$value,$s_text,$b_text);
 
 
 
-$url = "https://analytics.google.com/analytics/web/#/report/content-pages/a63821144w99505338p103457030/_u.date00=20140613&_u.date01=".cute_jy_met_date_trance($u_date01);
+$url = "https://analytics.google.com/analytics/web/#/report/content-pages/a63821144w99505338p186255958/_u.date00=20140613&_u.date01=".cute_jy_met_date_trance($u_date01);
 $url = $url."&explorer-table.plotKeys=%5B%5D&explorer-table.rowCount=2500&explorer-table.advFilter=%5B%5B0,%22analytics.pagePath%22,%22PT%22,%22read%22,0%5D,%5B0,%22analytics.pagePath%22,%22PT%22,%22program%22,1%5D,%5B0,%22analytics.pagePath%22,%22PT%22,%22page%22,1%5D%5D";
 $text1 = "매트 정보 넣기";
 $value += 1;

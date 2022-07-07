@@ -6,7 +6,6 @@ include_once('../contents_header.php');
 include_once('../contents_profile.php');
 //include_once('../contents_sidebar.php');
 
-set_time_limit(0);
 
 
 
