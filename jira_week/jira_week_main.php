@@ -27,10 +27,10 @@ include_once('../contents_sidebar.php');
 
 <?php 
 $project_name=array();
-$project_sql	 = "	SELECT MZNO_components FROM jira_work_log GROUP BY MZNO_components;";
+$project_sql	 = "	SELECT comment_kind FROM jirasync_work GROUP BY comment_kind;";
 $project_res	=  mysqli_query($real_sock,$project_sql) or die(mysqli_error($real_sock));
 while($project_info	 = mysqli_fetch_array($project_res)){
-	array_push($project_name,$project_info['MZNO_components']);
+	array_push($project_name,$project_info['comment_kind']);
 }
 
 
@@ -118,14 +118,17 @@ function weekOfMonth($vdate) {
 
 		$week_array = array(array());
 		$week_sql	 = "
-				SELECT WEEKOFYEAR(jwl.work_updated) as weeknum,di.division_name,((sum(jwl.work_timeSpentSeconds)/3600)/8/20.8) AS timep
-					FROM jira_work_log AS jwl
-					JOIN admin_member AS am
-					ON jwl.work_author = am.admin_name
-				JOIN division_info AS di
-					ON di.division_idx= am.division_idx	
-				WHERE 		WEEKOFYEAR(jwl.work_updated)>11
-				group by WEEKOFYEAR(jwl.work_updated),am.division_idx";
+		SELECT 
+		WEEKOFYEAR(jwl.updated) as weeknum,
+		di.division_name,
+		((sum(jwl.timeSpentSeconds)/3600)/8/20.8) AS timep
+		FROM jirasync_work AS jwl
+			JOIN admin_member AS am
+		ON jwl.jmi_work_name = am.admin_name
+			JOIN admin_division_info AS di
+		ON di.division_idx= am.division_idx	
+	WHERE 		WEEKOFYEAR(jwl.updated)>0
+	group by WEEKOFYEAR(jwl.updated),am.division_idx";
 		$week_res	=  mysqli_query($real_sock,$week_sql) or die(mysqli_error($real_sock));
 		while($week_info	 = mysqli_fetch_array($week_res)){
 			$week_array[$week_info['weeknum']][$week_info['division_name']] = $week_info['timep'];

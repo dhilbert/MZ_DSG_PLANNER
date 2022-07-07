@@ -3,19 +3,21 @@ include_once('../lib/session.php');
 include_once('../lib/dbcon_MZ_DSG_PLANNER.php');
 include_once('../contents_header.php');
 include_once('../contents_profile.php');
-include_once('../contents_sidebar.php');
+//include_once('../contents_sidebar.php');
 
 $week_num = isset($_GET['week_num']) ? $_GET['week_num'] : 3;
 $week_array = array();
 		$week_sql	 = "
-				SELECT WEEKOFYEAR(jwl.work_updated) as weeknum,di.division_name,((sum(jwl.work_timeSpentSeconds)/3600)/8/20.8) AS timep
-					FROM jira_work_log AS jwl
+				SELECT WEEKOFYEAR(jwl.updated) as weeknum,di.division_name,((sum(jwl.timeSpentSeconds)/3600)/8/20.8) AS timep
+				FROM jirasync_work AS jwl
 					JOIN admin_member AS am
-					ON jwl.work_author = am.admin_name
-				JOIN division_info AS di
-					ON di.division_idx= am.division_idx	
-				WHERE 		WEEKOFYEAR(jwl.work_updated)=".$week_num."
-				group by WEEKOFYEAR(jwl.work_updated),am.division_idx";
+					ON jwl.jmi_work_name = am.admin_name
+
+					JOIN admin_division_info AS di
+					ON di.division_idx= am.division_idx						
+				
+				WHERE 		WEEKOFYEAR(jwl.updated)=".$week_num."
+				group by WEEKOFYEAR(jwl.updated),am.division_idx";
 		$week_res	=  mysqli_query($real_sock,$week_sql) or die(mysqli_error($real_sock));
 		while($week_info	 = mysqli_fetch_array($week_res)){
 			$week_array[$week_info['division_name']] = $week_info['timep'];
@@ -93,45 +95,46 @@ $week_array = array();
 		$week_array = array();
 		$week_sql	 = "	
 		
-SELECT jwls.MZNO_components,sum(jwls.work_timeSpentSeconds)/3600/8/20.8 AS mamweek,
+SELECT jwls.checksss,sum(jwls.timeSpentSeconds)/3600/8/20.8 AS mamweek,
 (
-	SELECT SUM(jwl.work_timeSpentSeconds)/3600/8/20.8 AS mamweek
-		FROM jira_work_log AS jwl
+	SELECT SUM(jwl.timeSpentSeconds)/3600/8/20.8 AS mamweek
+		FROM jirasync_work AS jwl
 			JOIN admin_member AS am
-		ON jwl.work_author = am.admin_name				
-	WHERE WEEKOFYEAR(jwl.work_updated)=".$week_num."
+		ON jwl.jmi_work_name = am.admin_name				
+	WHERE WEEKOFYEAR(jwl.updated)=".$week_num."
 	AND am.division_idx = 1
-	AND jwl.MZNO_components=jwls.MZNO_components
+	AND jwl.checksss=jwls.checksss
 ) AS team1,		(
-	SELECT SUM(jwl.work_timeSpentSeconds)/3600/8/20.8 AS mamweek
-		FROM jira_work_log AS jwl
+	SELECT SUM(jwl.timeSpentSeconds)/3600/8/20.8 AS mamweek
+		FROM jirasync_work AS jwl
 			JOIN admin_member AS am
-		ON jwl.work_author = am.admin_name				
-	WHERE WEEKOFYEAR(jwl.work_updated)=".$week_num."
+		ON jwl.jmi_work_name = am.admin_name				
+	WHERE WEEKOFYEAR(jwl.updated)=".$week_num."
 	AND am.division_idx = 2
-	AND jwl.MZNO_components=jwls.MZNO_components
+	AND jwl.checksss=jwls.checksss
 )AS team2,		(
-	SELECT SUM(jwl.work_timeSpentSeconds)/3600/8/20.8 AS mamweek
-		FROM jira_work_log AS jwl
+	SELECT SUM(jwl.timeSpentSeconds)/3600/8/20.8 AS mamweek
+		FROM jirasync_work AS jwl
 			JOIN admin_member AS am
-		ON jwl.work_author = am.admin_name				
-	WHERE WEEKOFYEAR(jwl.work_updated)=".$week_num."
+		ON jwl.jmi_work_name = am.admin_name				
+	WHERE WEEKOFYEAR(jwl.updated)=".$week_num."
 	AND am.division_idx = 3
-	AND jwl.MZNO_components=jwls.MZNO_components
+	AND jwl.checksss=jwls.checksss
 )AS team3,		(
-	SELECT SUM(jwl.work_timeSpentSeconds)/3600/8/20.8 AS mamweek
-		FROM jira_work_log AS jwl
+	SELECT SUM(jwl.timeSpentSeconds)/3600/8/20.8 AS mamweek
+		FROM jirasync_work AS jwl
 			JOIN admin_member AS am
-		ON jwl.work_author = am.admin_name				
-	WHERE WEEKOFYEAR(jwl.work_updated)=".$week_num."
+		ON jwl.jmi_work_name = am.admin_name				
+	WHERE WEEKOFYEAR(jwl.updated)=".$week_num."
 	AND am.division_idx = 4
-	AND jwl.MZNO_components=jwls.MZNO_components
+	AND jwl.checksss=jwls.checksss
 ) AS team4
 
 
-FROM jira_work_log AS jwls
-WHERE WEEKOFYEAR(jwls.work_updated)=".$week_num."
-GROUP BY jwls.MZNO_components;";
+FROM jirasync_work AS jwls
+WHERE WEEKOFYEAR(jwls.updated)=".$week_num."
+GROUP BY jwls.checksss;";
+
 $want_text = '';
 $week_res	=  mysqli_query($real_sock,$week_sql) or die(mysqli_error($real_sock));
 while($week_info	 = mysqli_fetch_array($week_res)){
@@ -140,10 +143,10 @@ while($week_info	 = mysqli_fetch_array($week_res)){
 	$time_temp_2 = isset($week_info['team2'])? $week_info['team2'] : 0;
 	$time_temp_3 = isset($week_info['team3'])? $week_info['team3'] : 0;
 	$time_temp_4 = isset($week_info['team4'])? $week_info['team4'] : 0;
-	echo "['".$week_info['MZNO_components']."',".$time_temp_1.",".$time_temp_2.",".$time_temp_3.",".$time_temp_4."   ],";
+	echo "['".$week_info['checksss']."',".$time_temp_1.",".$time_temp_2.",".$time_temp_3.",".$time_temp_4."   ],";
 	$want_text = $want_text."
 			<tr>
-				<td data-field='s_0' data-sortable='true' >".$week_info['MZNO_components']."</td>
+				<td data-field='s_0' data-sortable='true' >".$week_info['checksss']."</td>
 				<td data-field='s_1' data-sortable='true' >".round($total_temp,3)."</td>
 				<td data-field='s_2' data-sortable='true' >".round($time_temp_1,3)."</td>
 				<td data-field='s_3' data-sortable='true' >".round($time_temp_2,3)."</td>
@@ -245,10 +248,10 @@ while($week_info	 = mysqli_fetch_array($week_res)){
 			$member_name = array();
 			$member_array = array(array());
 			$member_sql	 = "	
-				SELECT work_author,MZNO_components,sum(work_timeSpentSeconds)/3600/8/20.8 AS mamweek
-						FROM jira_work_log 
-				WHERE WEEKOFYEAR(work_updated)=".$week_num."
-				GROUP BY work_author,MZNO_components
+				SELECT jmi_work_name,comment_kind,sum(timeSpentSeconds)/3600/8/20.8 AS mamweek
+						FROM jirasync_work 
+				WHERE WEEKOFYEAR(updated)=".$week_num."
+				GROUP BY jmi_work_name,comment_kind
 				order by mamweek ASC
 				
 				;";
@@ -256,9 +259,9 @@ while($week_info	 = mysqli_fetch_array($week_res)){
 			$member_res	=  mysqli_query($real_sock,$member_sql) or die(mysqli_error($real_sock));
 			while($member_info	 = mysqli_fetch_array($member_res)){
 				
-				$member_array[$member_info['work_author']][$member_info['MZNO_components']] = $member_info['mamweek'];
-				if(!in_array($member_info['work_author'],$member_name)){
-					array_push($member_name,$member_info['work_author']);
+				$member_array[$member_info['jmi_work_name']][$member_info['comment_kind']] = $member_info['mamweek'];
+				if(!in_array($member_info['jmi_work_name'],$member_name)){
+					array_push($member_name,$member_info['jmi_work_name']);
 				}
 
 
@@ -289,22 +292,22 @@ while($week_info	 = mysqli_fetch_array($week_res)){
     function drawChart() {
 		var data = google.visualization.arrayToDataTable([
         ['성명',<?php
-				$MZNO_components_text = '';
-				$MZNO_components_array = array();
-				$MZNO_components_sql	 = "	
-					SELECT MZNO_components
-							FROM jira_work_log 
-					WHERE WEEKOFYEAR(work_updated)=".$week_num."
-					GROUP BY MZNO_components;";
+				$comment_kind_text = '';
+				$comment_kind_array = array();
+				$comment_kind_sql	 = "	
+					SELECT comment_kind
+							FROM jirasync_work 
+					WHERE WEEKOFYEAR(updated)=".$week_num."
+					GROUP BY comment_kind;";
 				
-				$MZNO_components_res	=  mysqli_query($real_sock,$MZNO_components_sql) or die(mysqli_error($real_sock));
-				while($MZNO_components_info	 = mysqli_fetch_array($MZNO_components_res)){
-					array_push($MZNO_components_array,$MZNO_components_info['MZNO_components'] );
-					$MZNO_components_text = $MZNO_components_text."'".$MZNO_components_info['MZNO_components']."',";
+				$comment_kind_res	=  mysqli_query($real_sock,$comment_kind_sql) or die(mysqli_error($real_sock));
+				while($comment_kind_info	 = mysqli_fetch_array($comment_kind_res)){
+					array_push($comment_kind_array,$comment_kind_info['comment_kind'] );
+					$comment_kind_text = $comment_kind_text."'".$comment_kind_info['comment_kind']."',";
 					
 				}
-				$MZNO_components_text =substr($MZNO_components_text , 0, -1);
-				echo $MZNO_components_text ;
+				$comment_kind_text =substr($comment_kind_text , 0, -1);
+				echo $comment_kind_text ;
 				
 				
 				?>, { role: 'annotation' } ],
@@ -315,8 +318,8 @@ while($week_info	 = mysqli_fetch_array($week_res)){
 				$totals = 0;
 				$temp_text="";
 
-				for($j = 0 ; $j < count($MZNO_components_array);$j++){
-					$temp =   isset($member_array[$member_name[$i]][$MZNO_components_array[$j]]) ? $member_array[$member_name[$i]][$MZNO_components_array[$j]] : 0;
+				for($j = 0 ; $j < count($comment_kind_array);$j++){
+					$temp =   isset($member_array[$member_name[$i]][$comment_kind_array[$j]]) ? $member_array[$member_name[$i]][$comment_kind_array[$j]] : 0;
 					
 					$totals +=	$temp;
 					
