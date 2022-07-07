@@ -45,11 +45,24 @@ function hd_drop($num,$grobal,$sub_name,$sub_url){
 
 		<?php
 
+
+
+			$num		='hq-0000';
+			$grobal		= '공사중 주간 보고';
+			$sub_name	= array('테스트1','테스트2','테스트3');
+			$sub_url	= array("/MZ_DSG_PLANNER/jira_ana/jira_ana_main.php",
+			"/MZ_DSG_PLANNER/jira_ana/jira_ana_detail.php",
+			"/MZ_DSG_PLANNER/jira_ana/jira_ana_detali.php",);
+			hd_drop($num,$grobal,$sub_name,$sub_url);
+
 			$num		='hq-01';
 			$grobal		= '지라 관리';
 			$sub_name	= array('지라 생성');
 			$sub_url	= array("/MZ_DSG_PLANNER/01_workflow/01_workflow.php");
 			//hd_drop($num,$grobal,$sub_name,$sub_url);
+
+
+
 
 
 
