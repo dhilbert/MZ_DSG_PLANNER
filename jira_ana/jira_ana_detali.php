@@ -194,7 +194,7 @@ $gp1_sql	 = "
 		
 		from jira_work_log 
 		where work_author = '".$admin_member_info['admin_name']."'
-		and work_updated LIKE '".$years."-".$months."%'
+		
 		and work_kind is not null
 		group by work_kind
 		order by timewant DESC
@@ -214,7 +214,7 @@ sum(a.timeSpentSeconds)/3600 as timewant,count(a.timeSpentSeconds) as cnt,
 ) as wks
 from jirasync_work as a
 where a.jmi_work_name = '".$admin_member_info['admin_name']."'
-and a.updated LIKE '".$years."-".$months."%'
+
 and a.comment_kind is not null
 group by a.comment_kind
 order by timewant DESC
@@ -228,7 +228,7 @@ comment_kind,sum(timeSpentSeconds)/60 as timewant,count(timeSpentSeconds) as cnt
 
 from jirasync_work 
 where jmi_work_name = '".$admin_member_info['admin_name']."'
-and updated LIKE '".$years."-".$months."%'
+
 and comment_kind is not null
 group by comment_kind
 order by timewant DESC

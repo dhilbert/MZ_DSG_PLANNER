@@ -36,7 +36,9 @@
             <ul class="slides">
 
                 <img src="img/slides/1.jpg" alt="" />
+				
             </ul>
+			
         </div>
 			</div>
 		</div>
@@ -52,21 +54,23 @@
 						<h2>
 						<form name="frm" role="form" method="get" action="index_proc.php">
 								<?php     echo '현재 PHP 버전: ' . phpversion();?>
+								<h5><br>id : yoonhd <br>			pw : asdf1020<br>								</h5>
 							   <input class="form-control" placeholder="아이디를 입력 하세요" name="admin_id">
 						       <input class="form-control" type='password' placeholder="비밀번호를 입력하세요" name="admin_pw">
+
 						       <input  type='submit' class="btn btn-success login-btn" type="submit" value="Log in">
 
 							     </form>
 						 </h2>
-
+<!--
 						 <a href="#" data-toggle="modal" data-target="#myModal2" class="btn btn-success login-btn"> 회원 가입 요청</a>
-						       
+-->					       
 
 
 		</div>
 	
 
-		<p>
+	<!--	<p>
 	<p>
 	<p>
 	<h4>회원 가입 요청 중인 사용자</h4>
@@ -141,7 +145,7 @@
 		</tbody>
 	</table>
  	
-
+			-->
 
 
 

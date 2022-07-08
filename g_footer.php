@@ -4,7 +4,7 @@
 			
 
 					<h5 class="widgetheading">
-					＠ Copyright©2017 H.D.Yoon and <strong>....</strong>
+					＠ Copyright©2022 H.D.Yoon and 
 										
 					
 <p>

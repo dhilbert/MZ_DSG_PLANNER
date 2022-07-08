@@ -40,9 +40,11 @@ function hd_drop($num,$grobal,$sub_name,$sub_url){
 
 		<ul class="nav menu" >
 		<li <?php hd_active("home.php");?>><a href="/MZ_DSG_PLANNER/home.php"><svg class="glyph stroked home"><use xlink:href="#stroked-home"/></svg>Home</a></li>
+		
+		<!--
 		<li <?php hd_active("slacks.php");?>><a href="/MZ_DSG_PLANNER/slacks.php"><svg class="glyph stroked home"><use xlink:href="#stroked-home"/></svg>webhook테스트</a></li>
 		<li <?php hd_active("test_pre.php");?>><a href="/MZ_DSG_PLANNER/test_pre.php"><svg class="glyph stroked home"><use xlink:href="#stroked-home"/></svg>oauth2 승인</a></li>
-
+-->
 		<?php
 
 
